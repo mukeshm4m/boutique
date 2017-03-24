@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.boutique.model.Invoice" table="Invoice">
+		<id column="Id" name="id" type="java.lang.Integer">
+<!-- 			<generator class="native" /> -->
+		<generator class="sequence">
+				<param name="sequence">INVOICE_SEQ</param>
+		</generator>
+		</id>
+		
+		<property column="InvoiceNo" name="invoiceNo" type="java.lang.String" />
+		<property column="SlipNo" name="slipNo" type="java.lang.String" />
+		<property column="PaymentReferenceNo" name="paymentReferenceNo" type="java.lang.String" />
+		<property column="PaymentMode" name="paymentMode" type="java.lang.String" />
+		<property column="InvoiceType" name="invoiceType" type="java.lang.String" />
+		<property column="DepositorName" name="depositorName" type="java.lang.String" />
+		<property column="ClientName" name="clientName" type="java.lang.String" />
+		<property column="Currency" name="currency" type="java.lang.String" />
+		<property column="Amount" name="amount" type="java.lang.Double" />
+		<property column="PaymentDateTime" name="paymentDateTime" type="java.util.Date" />
+		<property column="PurchaseDateTime" name="purchaseDateTime" type="java.util.Date" />
+		
+		<many-to-one column="CashierId" name="cashier"
+			class="com.boutique.model.Cashier" fetch="join" />
+			
+		<bag name="invoiceProducts" table="InvoiceProduct" cascade="all-delete-orphan">
+			<key column="InvoiceId" />
+			<one-to-many class="com.boutique.model.InvoiceProduct" />
+		</bag>
+		
+	</class>
+</hibernate-mapping>

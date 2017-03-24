@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" 
+	xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<title>Boutique</title>
+</h:head>
+
+<!-- Bootstrap core CSS -->
+<link href="#{request.contextPath}/resources/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- /Bootstrap core CSS -->
+
+<!-- Icon Fonts -->
+<link href="#{request.contextPath}/resources/assets/css/font-awesome.min.css" rel="stylesheet" />
+
+<!-- TipTip CSS -->
+<link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/tipTip.css" />
+<!-- /TipTip CSS -->
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/paddingmargin.css" />
+<link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/common.css" />
+<link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/calendar.css" />
+<link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/popup.css" />
+<!-- /Custom CSS -->
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<h:outputText
+	value="&lt;!--[if lt IE 9]&gt;
+	&lt;script src=&quot;https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js&quot; &gt;&lt;/script&gt;
+	&lt;script src=&quot;https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js&quot; &gt;&lt;/script&gt;&lt;![endif]--&gt;"
+	escape="false" />
+
+<!-- JAVASCRIPT Files -->
+<script src="#{request.contextPath}/resources/assets/js/jquery-2.1.4.min.js"></script>
+<script src="#{request.contextPath}/resources/assets/bootstrap/js/bootstrap.min.js"></script>
+
+<!--  Plugins -->
+<script src="#{request.contextPath}/resources/assets/js/jquery.maskedinput.min.js"></script>
+<script src="#{request.contextPath}/resources/assets/js/tipTip.js"></script>
+<script src="#{request.contextPath}/resources/assets/js/loadCSS.js"></script>
+<!-- /Plugins -->
+
+<!-- Custom JS -->
+<script src="#{request.contextPath}/resources/assets/js/common.js"></script>
+<script src="#{request.contextPath}/resources/assets/js/popup.js"></script>
+<script src="#{request.contextPath}/resources/assets/js/validation.js"></script>
+<!-- /Custom JS -->
+
+<script type="text/javascript">
+(function() {
+    var stylesheet = loadCSS("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+})();
+</script>
+
+<h:body>
+
+	<h:form id="menuForm">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+	
+					<h:link value="Boutique" styleClass="navbar-brand text-bold text-white" outcome="/index.xhtml"></h:link>
+				</div>
+	
+				<h:panelGroup rendered="#{sessionBean.userLoggedIn}">
+					<div id="navbar" class="collapse navbar-collapse">
+						
+							<ul id="mainMenu" class="nav navbar-nav">
+								<li class="active">
+									<h:link value="Shopping Cart" outcome="/private/shoppingCart.xhtml"></h:link>
+								</li>
+								<li class="">
+									<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
+								</li>
+							</ul>
+		
+						<div class="pull-right">
+							<h4 style="margin-top: 1.1em;">
+								<small class="text-white">Welcome <b style="margin: 0 0.5em 0 0.25em;">
+								</b> | <h:commandLink styleClass="text-bold mr-left0p5" action="#{loginBean.logout()}" value="Logout"></h:commandLink></small>
+							</h4>
+						</div>
+					</div>
+				</h:panelGroup>
+				
+				<!--/.nav-collapse -->
+	
+			</div>
+		</nav>
+	</h:form>
+
+
+	<!-- Wrapper -->
+	<div class="wrapper">
+		<ui:insert name="pageContent">
+
+		</ui:insert>
+	</div>
+
+	<!-- /Wrapper -->
+	<noscript>
+		<div id="jsDisabledPanel" class="alert alert-danger">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>JavaScript is disabled on your browser.</h2>
+						<h4>
+							For full functionality of this site it is necessary to enable JavaScript. Follow
+							<h:panelGroup rendered="#{!signupBean.checkDeviceIsIphone()}">
+								<a href="http://www.enable-javascript.com/" target="_blank"> these </a>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{signupBean.checkDeviceIsIphone()}">
+								<a href="https://www.whatismybrowser.com/guides/how-to-enable-javascript/safari-iphone-ipod" target="_blank"> these </a>
+							</h:panelGroup>
+							instructions to enable Javascript in your browser.
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</noscript>
+
+	<div id="ajax_loader"></div>
+	<div id="popup_loader"></div>
+
+</h:body>
+
+</html>

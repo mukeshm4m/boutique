@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<managed-bean>
+		<managed-bean-name>sessionBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.SessionBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.LoginBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>cartBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.CartBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>cartController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.CartController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>reportBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.ReportBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>reportController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.ReportController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toHomePage</from-outcome>
+			<redirect />
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toShoppingCartPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/shoppingCart.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toReportingPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/report.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toViewExpirePage</from-outcome>
+			<redirect />
+			<to-view-id>/error/expired.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<factory>
+		<exception-handler-factory>com.boutique.common.exception.JSFExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+
+</faces-config>

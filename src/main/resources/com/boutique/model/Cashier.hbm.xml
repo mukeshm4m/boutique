@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.boutique.model.Cashier" table="Cashier">
+		<id column="Id" name="id" type="java.lang.Integer">
+<!-- 			<generator class="native" /> -->
+<generator class="sequence">
+				<param name="sequence">CASHIER_SEQ</param>
+		</generator>
+		</id>
+		<property column="Name" name="name" type="java.lang.String" />
+		<property column="Username" name="username" type="java.lang.String" />
+		<property column="Password" name="password" type="java.lang.String" />
+		
+		<many-to-one column="StoreId" name="store"
+			class="com.boutique.model.Store" fetch="join" cascade="save-update" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,126 @@
+<!DOCTYPE htmls>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	
+	<link href='https://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css' />
+	
+	<style>
+		* {
+			font-family: "Roboto", sans-serif;
+		}
+		
+		html, body {
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h1, h2, h3, h4, h5, p {
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h2 {
+			font-size: 1.5vw;
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h3 {
+			font-size: 1.25vw;
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h5 {
+			font-size: 0.85vw;
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h4 {
+			font-size: 1.0vw;
+			line-height: 180%;
+			font-family: "Roboto", sans-serif;
+		}
+		
+		h6 {
+			font-size: 0.7vw;
+			font-family: "Roboto", sans-serif;
+		}
+		
+		p {
+			font-size: 0.75vw;
+			font-family: "Roboto", sans-serif;
+		}
+		
+	</style>
+</head>
+<body>
+
+	<h1 style="text-align: center; color: #303C66;">Receipt</h1>
+	
+	<div style="float: left; width: 100%; margin-top: 10px;">
+		<table style="border-spacing: 0px;">
+			<tbody>
+				<tr>
+					<td style="" width="65%">
+						<table>
+							<tbody>
+								<tr>
+									<td style="padding: 5px 15px;">Invoice No:</td>
+									<td style="padding: 5px 15px;" width="65%">##INVOICE_NO##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">##CLIENT_NAME_LABEL##:</td>
+									<td style="padding: 5px 15px;" width="65%">##CLIENT_NAME##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Location:</td>
+									<td style="padding: 5px 15px;" width="65%">##LOCATION##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Payment Date:</td>
+									<td style="padding: 5px 15px;" width="65%">##PAYMENT_DATE##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Depositor's Name:</td>
+									<td style="padding: 5px 15px;" width="65%">##DEPOSITOR_NAME##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Deposit Slip No:</td>
+									<td style="padding: 5px 15px;" width="65%">##DEPOSIT_SLIP_NO##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Total Amount:</td>
+									<td style="padding: 5px 15px;" width="65%">##TOTAL_AMOUNT##</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px 15px;">Payment Reference No:</td>
+									<td style="padding: 5px 15px;" width="65%">##PAYMENT_REFERENCE_NO##</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div style="float: left; width: 100%; padding-left: 15px; padding-top: 5px; margin-bottom: 20px;">
+		<table style="border-spacing: 0px; width: 100%">
+			<thead>
+				<tr>
+					<th style="padding: 5px 15px;padding-left: 5px;border-bottom: 1px black solid; font-weight: bold;">Product Name</th>
+					<th style="padding: 5px 15px;border-bottom: 1px black solid; font-weight: bold;">Quantity</th>
+					<th style="padding: 5px 15px;border-bottom: 1px black solid; font-weight: bold;">Amount</th>
+					<th style="padding: 5px 15px;border-bottom: 1px black solid; font-weight: bold;">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				##INVOICE_PRODUCTS##
+			</tbody>
+		</table>
+	</div>
+	
+	<div style="float: left; padding: 15px 20px; width: 100%; background-color: black;">
+	</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<composite:interface>
+
+	<!-- Input - allowed Country codes in this format: (if not provided all countries will be shown)
+	'pk', 'af', 'bi', 'kh', 'cm'
+	Full 2 letter country codes list present in "assets/js/intlTelInput.js"  -->
+	<composite:attribute name="allowedCountries" />
+	<!-- Input - preferred Country codes will be shown on top of the list
+	use same format as allowedCountries (preferedCountries list must be a subset of allowedCountries) -->
+	<composite:attribute name="preferedCountries" />
+	<!-- Input - component class -->
+	<composite:attribute name="styleClass" />
+
+	<composite:attribute name="style" />
+	<composite:attribute name="title" />
+	<!-- Input - component placeholder text -->
+	<composite:attribute name="placeholder" />
+	<composite:attribute name="onfocus" />
+
+	<!-- Input - Required - component ID -->
+	<composite:attribute name="id" required="true" />
+	<!-- Output - Required - return the full entered number with country (dialing) code -->
+	<composite:attribute name="enteredNumber" required="true" />
+	<composite:attribute name="tabIndex" required="false" />
+	<composite:attribute name="disabled" required="false" />
+	
+
+</composite:interface>
+<composite:implementation>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/gr/assets/css/intlTelInput.css" />
+	<script src="#{request.contextPath}/resources/gr/assets/js/intlTelInput.js" />
+		
+	<script>
+	$( document ).ready(function() {
+		//$(".#{cc.attrs.id}").intlTelInput({<c:if test="'us', 'gb', 'ae', 'no', 'de'">onlyCountries: [ 'us', 'gb', 'ae', 'no', 'de' ],</c:if> preferredCountries : [ 'us', 'gb', 'ae', 'no', 'de' ] });		
+		$(".#{cc.attrs.id}").intlTelInput({preferredCountries : [ 'us'] });
+	});
+    </script>
+	
+	<h:inputText rendered="#{cc.attrs.disabled}" disabled="#{cc.attrs.disabled}" value="#{cc.attrs.enteredNumber}" tabindex="#{cc.attrs.tabIndex}"
+		styleClass="#{cc.attrs.styleClass}" style="#{cc.attrs.style}" title="#{cc.attrs.title}" pt:placeholder="#{cc.attrs.placeholder} " autocomplete="off" />
+		
+	<h:inputText rendered="#{!cc.attrs.disabled}" disabled="#{cc.attrs.disabled}" value="#{cc.attrs.enteredNumber}" tabindex="#{cc.attrs.tabIndex}"
+		id="#{cc.attrs.id}" styleClass="intl-tel-input-field #{cc.attrs.styleClass} #{cc.attrs.id}" style="#{cc.attrs.style}" title="#{cc.attrs.title}"
+		pt:placeholder="#{cc.attrs.placeholder} " autocomplete="off" />
+
+</composite:implementation>
+</html>

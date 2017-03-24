@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.boutique.model.InvoiceProduct" table="InvoiceProduct">
+		<id column="Id" name="id" type="java.lang.Integer">
+		<!-- 			<generator class="native" /> -->
+			<generator class="sequence">
+				<param name="sequence">INVOICEPRODUCT_SEQ</param>
+			</generator>
+		</id>
+
+		<property column="Quantity" name="quantity" type="java.lang.Integer" />
+
+		<many-to-one column="ProductId" name="product"
+			class="com.boutique.model.Product" fetch="join" />
+
+		<many-to-one column="InvoiceId" name="invoice"
+			class="com.boutique.model.Invoice" fetch="join" />
+
+	</class>
+</hibernate-mapping>
