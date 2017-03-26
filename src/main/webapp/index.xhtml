@@ -45,7 +45,7 @@
 											<h:outputLabel value="Password" styleClass="sr-only" for="password" />
 										</div>
 										<div class="col-xs-12">
-											<h:inputText id="password" value="#{loginBean.password}" styleClass="form-control" />
+											<h:inputSecret id="password" value="#{loginBean.password}" styleClass="form-control" />
 
 											<h:panelGroup styleClass="error" rendered="#{loginBean.validationErrors.containsField('Password')}">
 												<h:outputText value="#{loginBean.validationErrors.getSimpleError('Password')}" />

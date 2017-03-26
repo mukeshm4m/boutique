@@ -14,22 +14,19 @@
 						<h:outputLabel value="From: " />
 					</div>
 					<div class="col-md-2">
-						<rich:calendar id="fromCal" value="#{reportBean.reportCriteria.fromDate}" autocomplete="off"
-							inputClass="input-masked form-control"
-							buttonClass="pull-left" showWeeksBar="false" datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png"
+						<rich:calendar id="fromCal" value="#{reportBean.reportCriteria.fromDate}" autocomplete="off" inputClass="input-masked form-control" buttonClass="pull-left"
+							showWeeksBar="false" datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png"
 							dayDisableFunction="disableFutureDates"></rich:calendar>
 					</div>
-					
+
 					<div class="col-md-1 text-right">
 						<h:outputLabel value="To: " />
 					</div>
 					<div class="col-md-2">
-						<rich:calendar id="toCal" value="#{reportBean.reportCriteria.toDate}" autocomplete="off"
-							inputClass="input-masked form-control"
-							buttonClass="pull-left" showWeeksBar="false" datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png"
-							dayDisableFunction="disableFutureDates"></rich:calendar>
+						<rich:calendar id="toCal" value="#{reportBean.reportCriteria.toDate}" autocomplete="off" inputClass="input-masked form-control" buttonClass="pull-left" showWeeksBar="false"
+							datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png" dayDisableFunction="disableFutureDates"></rich:calendar>
 					</div>
-					
+
 					<div class="col-md-2">
 						<h:selectOneMenu id="storesList" value="#{reportBean.reportCriteria.storeId}" styleClass="form-control">
 							<f:selectItem itemLabel="Select Branch" itemValue="-1"></f:selectItem>
@@ -37,25 +34,34 @@
 							</f:selectItems>
 						</h:selectOneMenu>
 					</div>
-					
+
+					<div class="col-md-2">
+						<h:selectOneMenu id="invoiceTypeList" value="#{reportBean.reportCriteria.invoiceType}" styleClass="form-control">
+							<f:selectItem itemLabel="Select Type" itemValue="-1"></f:selectItem>
+							<f:selectItem itemLabel="Customer" itemValue="Customer"></f:selectItem>
+							<f:selectItem itemLabel="Distributor" itemValue="Distributor"></f:selectItem>
+							<f:selectItem itemLabel="Business to Business" itemValue="Business to Business"></f:selectItem>
+						</h:selectOneMenu>
+					</div>
+
 				</div>
 
 				<div class="row  mr-bottom0p75">
-					
+
 					<div class="col-lg-1 col-md-2 text-right">
 						<h:outputLabel value="Invoice No: " />
 					</div>
 					<div class="col-md-2">
 						<h:inputText styleClass="form-control input-number-only" value="#{reportBean.reportCriteria.id}"></h:inputText>
 					</div>
-					
+
 					<div class="col-lg-1 col-md-2 text-right">
 						<h:outputLabel value="Client Name: " />
 					</div>
 					<div class="col-md-2">
 						<h:inputText styleClass="form-control" value="#{reportBean.reportCriteria.clientName}"></h:inputText>
 					</div>
-					
+
 					<div class="col-md-2">
 						<h:selectOneMenu value="#{reportBean.selectedProductCategoryId}" styleClass="form-control">
 							<f:selectItem itemLabel="Select Category" itemValue="-1"></f:selectItem>
@@ -75,7 +81,7 @@
 							</h:selectOneMenu>
 						</h:panelGroup>
 					</div>
-					
+
 				</div>
 
 				<div class="row  mr-bottom0p75">

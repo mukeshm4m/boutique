@@ -78,6 +78,7 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 					.addScalar("paymentReferenceNo", StandardBasicTypes.STRING)
 					.addScalar("paymentDateTime", StandardBasicTypes.DATE)
 					.addScalar("clientName", StandardBasicTypes.STRING)
+					.addScalar("invoiceType", StandardBasicTypes.STRING)
 					.addScalar("productCategoryName", StandardBasicTypes.STRING)
 					.addScalar("productName", StandardBasicTypes.STRING)
 					.addScalar("unitPrice", StandardBasicTypes.DOUBLE)
@@ -99,7 +100,7 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 	}
 	
 	private String getReportQuery(ReportCriteria reportCriteria) {
-		StringBuilder query = new StringBuilder("SELECT i.Id AS id, i.InvoiceNo AS invoiceNo, i.PaymentReferenceNo AS paymentReferenceNo, i.PaymentDateTime AS paymentDateTime, i.ClientName AS clientName, pc.Name AS productCategoryName, p.Name AS productName, p.Price AS unitPrice, ip.Quantity AS quantity, c.Name AS cashierName, s.Name AS storeName, (p.Price * ip.Quantity) AS totalAmount");
+		StringBuilder query = new StringBuilder("SELECT i.Id AS id, i.InvoiceNo AS invoiceNo, i.PaymentReferenceNo AS paymentReferenceNo, i.PaymentDateTime AS paymentDateTime, i.ClientName AS clientName, i.InvoiceType AS invoiceType, pc.Name AS productCategoryName, p.Name AS productName, p.Price AS unitPrice, ip.Quantity AS quantity, c.Name AS cashierName, s.Name AS storeName, (p.Price * ip.Quantity) AS totalAmount");
 		query.append(" FROM BOUTIQUE.Invoice i INNER JOIN BOUTIQUE.InvoiceProduct ip ON (i.Id = ip.InvoiceId)");
 		query.append(" INNER JOIN BOUTIQUE.Product p ON(ip.ProductId = p.Id)");
 		query.append(" INNER JOIN BOUTIQUE.ProductCategory pc ON (p.ProductCategoryId = pc.Id)");
@@ -133,6 +134,11 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		
 		if(Util.isNotNullAndEmpty(reportCriteria.getClientName())) {
 			whereClause.append(and).append(" i.ClientName  = '" + reportCriteria.getClientName() + "'");
+			and = " AND";
+		}
+		
+		if(Util.isNotNullAndEmpty(reportCriteria.getInvoiceType()) && !"-1".equalsIgnoreCase(reportCriteria.getInvoiceType())) {
+			whereClause.append(and).append(" i.InvoiceType  = '" + reportCriteria.getInvoiceType() + "'");
 			and = " AND";
 		}
 		

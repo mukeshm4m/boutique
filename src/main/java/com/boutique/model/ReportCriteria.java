@@ -13,6 +13,7 @@ public class ReportCriteria implements Serializable {
 
 	private String invoiceNo;
 	private String clientName;
+	private String invoiceType;
 
 	private Date fromDate;
 	private Date toDate;
@@ -135,6 +136,20 @@ public class ReportCriteria implements Serializable {
 	 */
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+
+	/**
+	 * @return the invoiceType
+	 */
+	public String getInvoiceType() {
+		return invoiceType;
+	}
+
+	/**
+	 * @param invoiceType the invoiceType to set
+	 */
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
 	}
 
 }

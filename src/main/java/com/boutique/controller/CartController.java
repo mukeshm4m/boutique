@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.boutique.common.controller.AbstractController;
 import com.boutique.common.model.StatusMessage;
+import com.boutique.common.util.Util;
 import com.boutique.model.InvoiceProduct;
 import com.boutique.model.Product;
 import com.boutique.util.CloneUtil;
@@ -128,12 +129,16 @@ public class CartController extends AbstractController {
 		ValidationUtil.validateTextField(true, "Slip No", "SlipNo", cartBean.getInvoice().getSlipNo(), cartBean.getValidationErrors(), 45);
 		ValidationUtil.validateTextField(true, "Payment Reference No", "PaymentReferenceNo", cartBean.getInvoice().getPaymentReferenceNo(), cartBean.getValidationErrors(), 45);
 		
-		if(cartBean.getInvoice().getAmount() <= 0.0) {
+		if(cartBean.getInvoice().getAmount() < 0.0) {
 			cartBean.getValidationErrors().addError("TotalAmount", "Total Amount should be greater than zero");
 		}
 		
 		if(cartBean.getInvoice().getPurchaseDateTime() == null) {
 			cartBean.getValidationErrors().addError("PurchaseDate", "Purchase Date can not be null");
+		}
+		
+		if(Util.isNullOrEmpty(cartBean.getInvoice().getInvoiceProducts())) {
+			cartBean.getValidationErrors().addError("InvoiceProducts", "Add atleast one product in cart");
 		}
 		
 		return !cartBean.getValidationErrors().getAnyError();

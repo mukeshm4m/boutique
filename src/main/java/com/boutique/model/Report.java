@@ -12,6 +12,7 @@ public class Report implements Serializable {
 	private String paymentReferenceNo;
 	private String depositorName;
 	private String clientName;
+	private String invoiceType;
 	private String cashierName;
 	private String storeName;
 	private Date paymentDateTime;
@@ -250,5 +251,19 @@ public class Report implements Serializable {
 	 */
 	public void setTotalAmount(Double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	/**
+	 * @return the invoiceType
+	 */
+	public String getInvoiceType() {
+		return invoiceType;
+	}
+
+	/**
+	 * @param invoiceType the invoiceType to set
+	 */
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
 	}
 }
