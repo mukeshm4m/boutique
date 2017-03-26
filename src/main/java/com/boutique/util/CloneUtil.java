@@ -15,6 +15,10 @@ public class CloneUtil {
 		try {
 			BeanUtilsBean.getInstance().getConvertUtils().register(false, false, 0);
 			BeanUtils.copyProperties(cloneInvoiceProduct, invoiceProduct);
+			
+			if(invoiceProduct.getId() == null) {
+				cloneInvoiceProduct.setId(null);
+			}
 
 		} catch (Exception e) {
 			System.err.println(e);
