@@ -16,6 +16,21 @@ function loadUiEvents() {
 		return isNumberKey(evt, this);
 	});
 	
+	$('.jqueryDatatable').DataTable({
+        dom: 'Bfrtip',
+        "searching": false,
+        buttons: [
+            'csv', 'excel', 
+            {
+				text : 'PDF',
+				extend : 'pdfHtml5',
+				exportOptions : {
+					columns : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+				}
+			}
+        ]
+    });
+	
 	disableEnterFormSubmit();
 }
 
