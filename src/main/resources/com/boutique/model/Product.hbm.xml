@@ -16,7 +16,7 @@
 		<property column="Price" name="price" type="java.lang.Double" />
 		
 		<many-to-one column="ProductCategoryId" name="productCategory"
-			class="com.boutique.model.ProductCategory" fetch="join" cascade="save-update" />
+			class="com.boutique.model.ProductCategory" fetch="join" />
 		
 	</class>
 </hibernate-mapping>

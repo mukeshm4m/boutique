@@ -45,6 +45,48 @@
 		</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>productBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.ProductBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>productController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.ProductController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>storeBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.StoreBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>storeController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.StoreController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>stockBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.StockBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>stockController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.admin.StockController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 	<navigation-rule>
 		<navigation-case>
@@ -58,7 +100,39 @@
 		<navigation-case>
 			<from-outcome>toShoppingCartPage</from-outcome>
 			<redirect />
-			<to-view-id>/private/shoppingCart.xhtml</to-view-id>
+			<to-view-id>/private/cashier/shoppingCart.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toProductManagementPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/admin/productManagement.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toStockManagementPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/admin/stockManagement.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toBranchManagementPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/admin/branchManagement.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>toStoreManagementPage</from-outcome>
+			<redirect />
+			<to-view-id>/private/admin/storeManagement.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

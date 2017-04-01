@@ -13,9 +13,10 @@
 		<property column="Name" name="name" type="java.lang.String" />
 		<property column="Username" name="username" type="java.lang.String" />
 		<property column="Password" name="password" type="java.lang.String" />
+		<property column="Role" name="role" type="java.lang.String" />
 		
 		<many-to-one column="StoreId" name="store"
-			class="com.boutique.model.Store" fetch="join" cascade="save-update" />
+			class="com.boutique.model.Store" fetch="join" />
 		
 	</class>
 </hibernate-mapping>

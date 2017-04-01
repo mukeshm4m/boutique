@@ -56,7 +56,11 @@ public class AuthFilter implements Filter {
 			if (modifiedContext.equals(uri) || uri.contains(".xhtml")) {
 
 				if (session.getAttribute("loginUser") != null && uri.endsWith("index.xhtml") || modifiedContext.equals(uri)) {
-					response.sendRedirect(serverHomeWithContext + "private/shoppingCart.xhtml");
+					if (session.getAttribute("isAdmin") != null) {
+						response.sendRedirect(serverHomeWithContext + "private/admin/productManagement.xhtml");
+					} else {
+						response.sendRedirect(serverHomeWithContext + "private/cashier/shoppingCart.xhtml");
+					}
 					return;
 				}
 

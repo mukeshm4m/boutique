@@ -25,7 +25,13 @@ import com.boutique.common.util.Util;
 import com.boutique.controller.CartBean;
 import com.boutique.controller.ReportBean;
 import com.boutique.controller.SessionBean;
+import com.boutique.controller.admin.ProductBean;
+import com.boutique.controller.admin.StockBean;
+import com.boutique.controller.admin.StoreBean;
+import com.boutique.dao.CashierDao;
 import com.boutique.dao.InvoiceDao;
+import com.boutique.dao.ProductDao;
+import com.boutique.dao.StockDao;
 import com.boutique.model.Product;
 import com.boutique.model.ProductCategory;
 import com.boutique.model.Store;
@@ -634,6 +640,33 @@ public abstract class AbstractController {
 	protected CartBean getCartBean() {
 		return (CartBean) getControllerObject("cartBean", CartBean.class);
 	}
+	
+	/**
+	 * The getProductBean() method is used to get ProductBean instance.
+	 *
+	 * @return ProductBean object
+	 */
+	protected ProductBean getProductBean() {
+		return (ProductBean) getControllerObject("productBean", ProductBean.class);
+	}
+	
+	/**
+	 * The getStoreBean() method is used to get StoreBean instance.
+	 *
+	 * @return StoreBean object
+	 */
+	protected StoreBean getStoreBean() {
+		return (StoreBean) getControllerObject("storeBean", StoreBean.class);
+	}
+	
+	/**
+	 * The getStockBean() method is used to get StockBean instance.
+	 *
+	 * @return StockBean object
+	 */
+	protected StockBean getStockBean() {
+		return (StockBean) getControllerObject("stockBean", StockBean.class);
+	}
 
 	/**
 	 * The getReportBean() method is used to get ReportBean instance.
@@ -646,6 +679,18 @@ public abstract class AbstractController {
 
 	protected InvoiceDao getInvoiceDao() {
 		return DaoManager.getInstance().getDao(InvoiceDao.class);
+	}
+	
+	protected static ProductDao getProductDao() {
+		return DaoManager.getInstance().getDao(ProductDao.class);
+	}
+	
+	protected CashierDao getCashierDao() {
+		return DaoManager.getInstance().getDao(CashierDao.class);
+	}
+	
+	protected StockDao getStockDao() {
+		return DaoManager.getInstance().getDao(StockDao.class);
 	}
 
 	public List<ProductCategory> getProductCategories() {

@@ -11,30 +11,74 @@
  <PROCESS-ITEM NAME="rules::1" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::1" NAME="item" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID="toShoppingCartPage::#private#shoppingCart.xhtml" NAME="output"
-    PATH="/private/shoppingCart.xhtml"
-    TARGET="rules:#private#shoppingCart.xhtml"
+    ID="toShoppingCartPage::#private#cashier#shoppingCart.xhtml"
+    NAME="output" PATH="/private/cashier/shoppingCart.xhtml"
+    TARGET="rules:#private#cashier#shoppingCart.xhtml"
     TITLE="toShoppingCartPage" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#private#shoppingCart.xhtml"
-  PATH="/private/shoppingCart.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules::2" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::2" NAME="item" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="toReportingPage::#private#report.xhtml"
-    NAME="output" PATH="/private/report.xhtml"
-    TARGET="rules:#private#report.xhtml" TITLE="toReportingPage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toProductManagementPage::#private#admin#productManagement.xhtml"
+    NAME="output" PATH="/private/admin/productManagement.xhtml"
+    TARGET="rules:#private#admin#productManagement.xhtml"
+    TITLE="toProductManagementPage" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#private#report.xhtml"
   PATH="/private/report.xhtml" SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules::3" SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::3" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="toStockManagementPage::#private#admin#stockManagement.xhtml"
+    NAME="output" PATH="/private/admin/stockManagement.xhtml"
+    TARGET="rules:#private#admin#stockManagement.xhtml"
+    TITLE="toStockManagementPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#error#expired.xhtml"
+  PATH="/error/expired.xhtml" SHAPE="240,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#cashier#shoppingCart.xhtml"
+  PATH="/private/cashier/shoppingCart.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules::4" SHAPE="32,465,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::4" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="toBranchManagementPage::#private#admin#branchManagement.xhtml"
+    NAME="output" PATH="/private/admin/branchManagement.xhtml"
+    TARGET="rules:#private#admin#branchManagement.xhtml"
+    TITLE="toBranchManagementPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#private#admin#productManagement.xhtml"
+  PATH="/private/admin/productManagement.xhtml" SHAPE="240,481,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules::5" SHAPE="32,689,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::5" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="toStoreManagementPage::#private#admin#storeManagement.xhtml"
+    NAME="output" PATH="/private/admin/storeManagement.xhtml"
+    TARGET="rules:#private#admin#storeManagement.xhtml"
+    TITLE="toStoreManagementPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#private#admin#stockManagement.xhtml"
+  PATH="/private/admin/stockManagement.xhtml" SHAPE="240,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules::6" SHAPE="32,801,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::6" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toReportingPage::#private#report.xhtml"
+    NAME="output" PATH="/private/report.xhtml"
+    TARGET="rules:#private#report.xhtml" TITLE="toReportingPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#private#admin#branchManagement.xhtml"
+  PATH="/private/admin/branchManagement.xhtml" SHAPE="240,929,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules::7" SHAPE="32,913,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::7" NAME="item" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="toViewExpirePage::#error#expired.xhtml"
     NAME="output" PATH="/error/expired.xhtml"
     TARGET="rules:#error#expired.xhtml" TITLE="toViewExpirePage" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#error#expired.xhtml"
-  PATH="/error/expired.xhtml" SHAPE="240,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#admin#storeManagement.xhtml"
+  PATH="/private/admin/storeManagement.xhtml" SHAPE="240,1041,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

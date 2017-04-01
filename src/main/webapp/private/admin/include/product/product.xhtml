@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:panelGroup id="newProductPanel">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-6">
+						<h3 class="panel-title text-bold">#{productBean.product.id eq null ? 'Add ' : 'Edit '} Product</h3>
+					</div>
+
+					<div class="col-xs-6 text-right">
+						<a4j:commandLink onbegin="ajaxStart();" render="productCategoryPopupPanel" oncomplete="ajaxStop();showStickyPopupById('productCategoryModal');" value="Add New Category" styleClass=" text-bold small"
+							action="#{productController.showProductCategoryPopup()}">
+						</a4j:commandLink>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-2">
+						<h:selectOneMenu value="#{productBean.selectedProductCategoryId}" styleClass="form-control">
+							<f:selectItem itemLabel="Select Category" itemValue="-1"></f:selectItem>
+							<f:selectItems value="#{productBean.productCategories}" var="productCategory" itemLabel="#{productCategory.name}" itemValue="#{productCategory.id}">
+							</f:selectItems>
+						</h:selectOneMenu>
+
+						<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('ProductCategory')}">
+							<h:outputText value="#{productBean.validationErrors.getSimpleError('ProductCategory')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<h:inputText id="productNameField" value="#{productBean.product.name}" styleClass="form-control" pt:placeholder="Product Name" />
+
+						<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('ProductName')}">
+							<h:outputText value="#{productBean.validationErrors.getSimpleError('ProductName')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<h:inputText id="productPriceField" value="#{productBean.product.price}" styleClass="form-control" pt:placeholder="Price" />
+
+						<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('Price')}">
+							<h:outputText value="#{productBean.validationErrors.getSimpleError('Price')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-success btn-block" value="#{productBean.product.id eq null ? 'Add ' : 'Update '}"
+							action="#{productController.addProduct()}" render="newProductPanel productListPanel" oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-danger btn-block" value="Cancel" action="#{productController.reset()}" render="productMainPanel"
+							oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
+
+</ui:composition>

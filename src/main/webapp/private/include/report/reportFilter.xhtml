@@ -26,14 +26,16 @@
 						<rich:calendar id="toCal" value="#{reportBean.reportCriteria.toDate}" autocomplete="off" inputClass="input-masked form-control" buttonClass="pull-left" showWeeksBar="false"
 							datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png" dayDisableFunction="disableFutureDates"></rich:calendar>
 					</div>
-
-					<div class="col-md-2">
-						<h:selectOneMenu id="storesList" value="#{reportBean.reportCriteria.storeId}" styleClass="form-control">
-							<f:selectItem itemLabel="Select Branch" itemValue="-1"></f:selectItem>
-							<f:selectItems value="#{reportBean.allStores}" var="store" itemLabel="#{store.name}" itemValue="#{store.id}">
-							</f:selectItems>
-						</h:selectOneMenu>
-					</div>
+					
+					<h:panelGroup rendered="#{sessionBean.cashier.role eq 'Admin'}">
+						<div class="col-md-2">
+							<h:selectOneMenu id="storesList" value="#{reportBean.reportCriteria.storeId}" styleClass="form-control">
+								<f:selectItem itemLabel="Select Branch" itemValue="-1"></f:selectItem>
+								<f:selectItems value="#{reportBean.allStores}" var="store" itemLabel="#{store.name}" itemValue="#{store.id}">
+								</f:selectItems>
+							</h:selectOneMenu>
+						</div>
+					</h:panelGroup>
 
 					<div class="col-md-2">
 						<h:selectOneMenu id="invoiceTypeList" value="#{reportBean.reportCriteria.invoiceType}" styleClass="form-control">

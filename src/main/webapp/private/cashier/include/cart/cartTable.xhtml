@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<a4j:outputPanel id="cartItemsPanel" layout="block">
+				<rich:dataTable id="cartItemsTable" value="#{cartBean.invoice.invoiceProducts}" var="invoiceProduct" styleClass="grDataTable responsive width100">
+
+					<rich:column id="productNameCol">
+						<f:facet name="header">
+							<h:outputText value="Product Name" />
+						</f:facet>
+						<h:outputText value="#{invoiceProduct.product.name}" />
+					</rich:column>
+
+					<rich:column id="quantityCol">
+						<f:facet name="header">
+							<h:outputText value="Quantity" />
+						</f:facet>
+						<h:outputText value="#{invoiceProduct.quantity}" />
+					</rich:column>
+
+					<rich:column id="amountCol">
+						<f:facet name="header">
+							<h:outputText value="Amount" />
+						</f:facet>
+						<h:outputText value="#{invoiceProduct.product.price}" />
+					</rich:column>
+
+					<rich:column id="totalPriceCol">
+						<f:facet name="header">
+							<h:outputText value="Total" />
+						</f:facet>
+						<h:outputText value="#{invoiceProduct.totalPrice}" />
+					</rich:column>
+
+					<rich:column id="action" styleClass="text-center" rendered="#{cartBean.step eq 1}">
+						<f:facet name="header">
+							<h:outputText value="Action" />
+						</f:facet>
+
+						<h:panelGroup>
+							<a4j:commandLink onbegin="ajaxStart();" render="newItemPanel" oncomplete="ajaxStop();" value="Edit" styleClass="text-uppercase small"
+								action="#{cartController.editCartItem(invoiceProduct)}">
+							</a4j:commandLink>
+
+							<a4j:commandLink onbegin="ajaxStart();" render="cartItemsTable" oncomplete="ajaxStop();" value="Delete" styleClass="text-uppercase small mr-left0p75"
+								action="#{cartController.deleteCartItem(invoiceProduct)}">
+							</a4j:commandLink>
+						</h:panelGroup>
+
+					</rich:column>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</div>
+	</div>
+
+</ui:composition>

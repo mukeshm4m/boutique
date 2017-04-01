@@ -5,33 +5,64 @@
 	<ui:define name="pageContent">
 
 		<f:metadata>
-    		<f:viewAction action="#{reportBean.loadData()}" />
+			<f:viewAction action="#{reportBean.loadData()}" />
 		</f:metadata>
 
 		<h:form id="reportForm">
 
-			<h:panelGroup id="reportMainPanel">
+			<h:panelGroup id="reportNavPanel" rendered="#{sessionBean.cashier.role eq 'Admin'}">
+				<ul class="nav nav-tabs">
+					<li class="#{reportBean.reportType eq 1 ? 'active' : ''}">
+						<a4j:commandLink value="Report 1" onbegin="ajaxStart()" action="#{reportController.showReport(1)}" oncomplete="ajaxStop()" render="reportNavPanel reportMainPanel"></a4j:commandLink>
+					</li>
+					<li class="#{reportBean.reportType eq 2 ? 'active' : ''}">
+						<a4j:commandLink value="Report 2" onbegin="ajaxStart()" action="#{reportController.showReport(2)}" oncomplete="ajaxStop()" render="reportNavPanel reportMainPanel"></a4j:commandLink>
+					</li>
+				</ul>
+			</h:panelGroup>
 
-				<div class="row">
-					<div class="col-xs-12">
-						<ui:include src="include/report/reportFilter.xhtml"></ui:include>
+			<h:panelGroup id="reportMainPanel">
+				<c:if test="#{reportBean.reportType eq 1}">
+					<div class="row">
+						<div class="col-xs-12">
+							<ui:include src="include/report/reportFilter.xhtml"></ui:include>
+						</div>
 					</div>
-				</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<ui:include src="include/report/reportTable.xhtml"></ui:include>
+						</div>
+					</div>
+				</c:if>
 				
-				<div class="row">
-					<div class="col-xs-12">
-						<ui:include src="include/report/reportTable.xhtml"></ui:include>
+				<c:if test="#{reportBean.reportType eq 2}">
+					<div class="row">
+						<div class="col-xs-12">
+							<ui:include src="include/report/shortReportFilter.xhtml"></ui:include>
+						</div>
 					</div>
-				</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<ui:include src="include/report/shortReportTable.xhtml"></ui:include>
+						</div>
+					</div>
+				</c:if>
 
 			</h:panelGroup>
 
-		</h:form>
 
-		<script>
-			$('#mainMenu').children('li').removeClass('active');
-			$('#mainMenu').children('li:eq(1)').addClass('active');
-		</script>
+			<script>
+				$('#mainMenu').children('li').removeClass('active');
+				if(#{sessionBean.cashier.role eq 'Admin'}) {
+					$('#mainMenu').children('li:eq(4)').addClass('active');
+				} else {
+					$('#mainMenu').children('li:eq(1)').addClass('active');
+				}
+			</script>
+
+		</h:form>
 
 	</ui:define>
 

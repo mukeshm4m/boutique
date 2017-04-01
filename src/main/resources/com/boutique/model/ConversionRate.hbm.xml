@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.boutique.model.ConversionRate" table="ConversionRate">
+		<id column="Id" name="id" type="java.lang.Integer">
+			<!-- <generator class="native" /> -->
+			<generator class="sequence">
+				<param name="sequence">CONVERSIONRATE_SEQ</param>
+			</generator>
+		</id>
+
+		<property column="Currency" name="currency" type="java.lang.String" />
+		<property column="Rate" name="rate" type="java.lang.Double" />
+
+	</class>
+</hibernate-mapping>

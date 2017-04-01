@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title text-bold">Report Filter</h3>
+		</div>
+
+		<div class="panel-body">
+
+			<h:panelGroup id="reportFilterPanel">
+				<div class="row  mr-bottom1">
+					<div class="col-md-1 text-right">
+						<h:outputLabel value="Date: " />
+					</div>
+					<div class="col-md-2">
+						<rich:calendar id="fromCal" value="#{reportBean.reportCriteria.fromDate}" autocomplete="off" inputClass="input-masked form-control" buttonClass="pull-left"
+							showWeeksBar="false" datePattern="MM/dd/yyyy" showFooter="false" buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png"
+							dayDisableFunction="disableFutureDates"></rich:calendar>
+					</div>
+
+					<div class="col-md-2">
+						<h:selectOneMenu id="storesList" value="#{reportBean.reportCriteria.storeId}" styleClass="form-control">
+							<f:selectItem itemLabel="Select Branch" itemValue="-1"></f:selectItem>
+							<f:selectItems value="#{reportBean.allStores}" var="store" itemLabel="#{store.name}" itemValue="#{store.id}">
+							</f:selectItems>
+						</h:selectOneMenu>
+					</div>
+					
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-success btn-block" value="Search" action="#{reportController.search()}" render="reportTablePanel"
+							oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-danger btn-block" value="Reset" action="#{reportController.resetFilters()}" render="reportMainPanel"
+							oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+
+				</div>
+
+			</h:panelGroup>
+
+		</div>
+	</div>
+
+
+</ui:composition>

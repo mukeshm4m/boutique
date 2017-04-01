@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title text-bold">Users</h3>
+		</div>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<a4j:outputPanel id="userListPanel" layout="block">
+						<rich:dataTable id="userTable" value="#{storeBean.cashiers}" var="user" styleClass="grDataTable responsive width100">
+
+							<rich:column id="userCol">
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{user.name}" />
+							</rich:column>
+							
+							<rich:column id="usernameCol">
+								<f:facet name="header">
+									<h:outputText value="Username" />
+								</f:facet>
+								<h:outputText value="#{user.username}" />
+							</rich:column>
+							
+							<rich:column id="roleCol">
+								<f:facet name="header">
+									<h:outputText value="Role" />
+								</f:facet>
+								<h:outputText value="#{user.role}" />
+							</rich:column>
+							
+							<rich:column id="storeNameCol">
+								<f:facet name="header">
+									<h:outputText value="store Name" />
+								</f:facet>
+								<h:outputText value="#{user.store.name}" />
+							</rich:column>
+							
+							<rich:column id="action" styleClass="text-center">
+								<f:facet name="header">
+									<h:outputText value="Action" />
+								</f:facet>
+
+								<h:panelGroup>
+									<a4j:commandLink onbegin="ajaxStart();" render="newUserPanel" oncomplete="ajaxStop();" value="Edit" styleClass="text-uppercase small"
+										action="#{storeController.editUser(user)}">
+									</a4j:commandLink>
+
+									<a4j:commandLink rendered="#{sessionBean.cashier.id ne user.id}" onbegin="ajaxStart();" render="userMainPanel" oncomplete="ajaxStop();" value="Delete" styleClass="text-uppercase small mr-left1"
+										action="#{storeController.deleteUser(user)}">
+									</a4j:commandLink>
+								</h:panelGroup>
+
+							</rich:column>
+
+						</rich:dataTable>
+					</a4j:outputPanel>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</ui:composition>

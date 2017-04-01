@@ -12,5 +12,7 @@ public interface InvoiceDao {
 	StatusMessage saveInvoice(Invoice invoice);
 
 	List<Report> getInvoiceReport(ReportCriteria reportCriteria);
+
+	List<Report> getInvoiceShortReport(ReportCriteria reportCriteria);
 	
 }

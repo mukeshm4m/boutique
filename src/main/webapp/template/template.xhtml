@@ -10,6 +10,9 @@
 	<meta name="keywords" content="" />
 	<meta name="author" content="" />
 	<title>Boutique</title>
+	
+	<link rel="icon" href="#{request.contextPath}/resources/assets/images/fav.png" type="image/png" />
+	
 </h:head>
 
 <!-- Bootstrap core CSS -->
@@ -26,7 +29,6 @@
 <!-- Jquery Datatable CSS -->
 <link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/jquery.dataTables.min.css" />
 <!-- /Jquery Datatable CSS -->
-
 <!-- Jquery Datatable Buttons CSS -->
 <link rel="stylesheet" href="#{request.contextPath}/resources/assets/css/buttons.dataTables.min.css" />
 <!-- /Jquery Datatable Buttons CSS -->
@@ -93,19 +95,54 @@
 
 				<h:panelGroup rendered="#{sessionBean.userLoggedIn}">
 					<div id="navbar" class="collapse navbar-collapse">
-
+						
 						<ul id="mainMenu" class="nav navbar-nav">
-							<li class="active">
-								<h:link value="Shopping Cart" outcome="/private/shoppingCart.xhtml"></h:link>
-							</li>
-							<li class="">
-								<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
-							</li>
+						
+							<h:panelGroup rendered="#{sessionBean.cashier.role eq 'Cashier'}">
+								<li class="active">
+									<h:link value="Shopping Cart" outcome="/private/cashier/shoppingCart.xhtml"></h:link>
+								</li>
+								<li class="">
+									<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
+								</li>
+							</h:panelGroup>
+							
+							<h:panelGroup rendered="#{sessionBean.cashier.role eq 'Admin'}">
+								
+								<li class="active">
+									<h:link value="Products" outcome="/private/admin/productManagement.xhtml"></h:link>
+								</li>
+								
+								<li class="">
+									<h:link value="Branches" outcome="/private/admin/branchManagement.xhtml"></h:link>
+								</li>
+								
+								<li class="">
+									<h:link value="Stock" outcome="/private/admin/stockManagement.xhtml"></h:link>
+								</li>
+								
+								<li class="">
+									<h:link value="Users" outcome="/private/admin/userManagement.xhtml"></h:link>
+								</li>
+								
+								<li class="">
+									<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
+								</li>
+
+								<li class="">
+									<a4j:commandLink value="Currency Conversion" onbegin="ajaxStart();" render="conversionPopupPanel" oncomplete="ajaxStop();showStickyPopupById('conversionModal');"
+										action="#{productController.showConversionRatePopup()}"></a4j:commandLink>
+									
+									<ui:include src="/private/admin/include/conversionRatePopup.xhtml"></ui:include>
+									
+								</li>
+							</h:panelGroup>
+							
 						</ul>
 
 						<div class="pull-right">
 							<h4 style="margin-top: 1.1em;">
-								<small class="text-white">Welcome <b style="margin: 0 0.5em 0 0.25em;"> </b> | <h:commandLink styleClass="text-bold mr-left0p5" action="#{loginBean.logout()}"
+								<small class="text-white">Welcome <b>#{sessionBean.cashier.name}</b> <b style="margin: 0 0.5em 0 0.25em;"> </b> | <h:commandLink styleClass="text-bold mr-left0p5" action="#{loginBean.logout()}"
 										value="Logout"></h:commandLink></small>
 							</h4>
 						</div>

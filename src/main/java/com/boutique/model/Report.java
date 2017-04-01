@@ -13,9 +13,11 @@ public class Report implements Serializable {
 	private String depositorName;
 	private String clientName;
 	private String invoiceType;
+	private String currency;
 	private String cashierName;
 	private String storeName;
 	private Date paymentDateTime;
+	private Date paymentDateOnly;
 	private String productCategoryName;
 	private String productName;
 	private Integer quantity;
@@ -36,6 +38,7 @@ public class Report implements Serializable {
 		this.paymentDateTime = invoice.getPaymentDateTime();
 		this.cashierName = invoice.getCashier().getName();
 		this.storeName = invoice.getCashier().getStore().getName();
+		this.currency = invoice.getCurrency();
 		
 		this.quantity = invoiceProduct.getQuantity();
 		this.productName = invoiceProduct.getProduct().getName();
@@ -265,5 +268,33 @@ public class Report implements Serializable {
 	 */
 	public void setInvoiceType(String invoiceType) {
 		this.invoiceType = invoiceType;
+	}
+
+	/**
+	 * @return the currency
+	 */
+	public String getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * @param currency the currency to set
+	 */
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	/**
+	 * @return the paymentDateOnly
+	 */
+	public Date getPaymentDateOnly() {
+		return paymentDateOnly;
+	}
+
+	/**
+	 * @param paymentDateOnly the paymentDateOnly to set
+	 */
+	public void setPaymentDateOnly(Date paymentDateOnly) {
+		this.paymentDateOnly = paymentDateOnly;
 	}
 }

@@ -25,6 +25,8 @@
         <mapping resource="com/boutique/model/Product.hbm.xml"></mapping>
         <mapping resource="com/boutique/model/Invoice.hbm.xml"></mapping>
         <mapping resource="com/boutique/model/InvoiceProduct.hbm.xml"></mapping>
+        <mapping resource="com/boutique/model/Stock.hbm.xml"></mapping>
+        <mapping resource="com/boutique/model/ConversionRate.hbm.xml"></mapping>
         
     </session-factory>
 </hibernate-configuration>

@@ -8,6 +8,7 @@ public class InvoiceProduct implements Serializable {
 	private Integer id;
 	private Integer quantity;
 	private Double totalPrice;
+	private Double totalAmount;
 	private Product product;
 	private Invoice invoice;
 	private Boolean editable = false;
@@ -109,5 +110,19 @@ public class InvoiceProduct implements Serializable {
 	 */
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+
+	/**
+	 * @return the totalAmount
+	 */
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+	/**
+	 * @param totalAmount the totalAmount to set
+	 */
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 }

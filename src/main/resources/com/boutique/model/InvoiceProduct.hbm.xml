@@ -12,6 +12,7 @@
 		</id>
 
 		<property column="Quantity" name="quantity" type="java.lang.Integer" />
+		<property column="TotalAmount" name="totalAmount" type="java.lang.Double" />
 
 		<many-to-one column="ProductId" name="product"
 			class="com.boutique.model.Product" fetch="join" />

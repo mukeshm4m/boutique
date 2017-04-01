@@ -190,3 +190,7 @@
 		width: 8.33333333%;
 	}
 }
+
+.modal-backdrop {
+	z-index: 1000;
+}

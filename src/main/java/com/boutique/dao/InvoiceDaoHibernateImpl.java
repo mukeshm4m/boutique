@@ -69,7 +69,7 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		try {
 
 			Session session = getSession();
-
+			
 			String queryString = getReportQuery(reportCriteria);
 
 			Query query = session.createSQLQuery(queryString)
@@ -89,7 +89,7 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 					.setResultTransformer(Transformers.aliasToBean(Report.class));
 
 			reports = query.list();
-
+			
 			session.close();
 
 		} catch (Exception e) {
@@ -100,13 +100,12 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 	}
 	
 	private String getReportQuery(ReportCriteria reportCriteria) {
-		StringBuilder query = new StringBuilder("SELECT i.Id AS id, i.InvoiceNo AS invoiceNo, i.PaymentReferenceNo AS paymentReferenceNo, i.PaymentDateTime AS paymentDateTime, i.ClientName AS clientName, i.InvoiceType AS invoiceType, pc.Name AS productCategoryName, p.Name AS productName, p.Price AS unitPrice, ip.Quantity AS quantity, c.Name AS cashierName, s.Name AS storeName, (p.Price * ip.Quantity) AS totalAmount");
+		StringBuilder query = new StringBuilder("SELECT i.Id AS id, i.InvoiceNo AS invoiceNo, i.PaymentReferenceNo AS paymentReferenceNo, i.PaymentDateTime AS paymentDateTime, i.ClientName AS clientName, i.InvoiceType AS invoiceType, pc.Name AS productCategoryName, p.Name AS productName, p.Price AS unitPrice, ip.Quantity AS quantity, c.Name AS cashierName, s.Name AS storeName, ip.TotalAmount AS totalAmount");
 		query.append(" FROM BOUTIQUE.Invoice i INNER JOIN BOUTIQUE.InvoiceProduct ip ON (i.Id = ip.InvoiceId)");
 		query.append(" INNER JOIN BOUTIQUE.Product p ON(ip.ProductId = p.Id)");
 		query.append(" INNER JOIN BOUTIQUE.ProductCategory pc ON (p.ProductCategoryId = pc.Id)");
 		query.append(" INNER JOIN BOUTIQUE.Cashier c ON (i.CashierId = c.Id)");
 		query.append(" INNER JOIN BOUTIQUE.Store s ON (c.StoreId = s.Id)");
-		
 		
 		StringBuilder whereClause = new StringBuilder(" WHERE");
 		
@@ -143,17 +142,11 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		}
 		
 		if(reportCriteria.getFromDate() != null) {
-			// for mysql
-			//whereClause.append(and).append(" i.PaymentDateTime  >= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
-			// for oracle
 			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd hh24:mi:ss')  >= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
 			and = " AND";
 		}
 		
 		if(reportCriteria.getToDate() != null) {
-			// for mysql
-			//whereClause.append(and).append(" i.PaymentDateTime  <= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getToDate()) + " 23:59:59'");
-			// for oracle
 			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd hh24:mi:ss')  <= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getToDate()) + " 23:59:59'");
 		}
 		
@@ -166,5 +159,67 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		return query.toString();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Report> getInvoiceShortReport(ReportCriteria reportCriteria) {
+
+		List<Report> reports = null;
+
+		try {
+
+			Session session = getSession();
+			
+			String queryString = getShortReportQuery(reportCriteria);
+
+			Query query = session.createSQLQuery(queryString)
+					.addScalar("storeName", StandardBasicTypes.STRING)
+					.addScalar("currency", StandardBasicTypes.STRING)
+					.addScalar("paymentDateTime", StandardBasicTypes.DATE)
+					//.addScalar("paymentDateOnly", StandardBasicTypes.DATE)
+					.addScalar("totalAmount", StandardBasicTypes.DOUBLE)
+					.setResultTransformer(Transformers.aliasToBean(Report.class));
+
+			reports = query.list();
+			
+			session.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
+		return reports;
+	}
+	
+	private String getShortReportQuery(ReportCriteria reportCriteria) {
+		//StringBuilder query = new StringBuilder("SELECT s.Name AS storeName, i.Currency AS currency, i.PaymentDateTime AS paymentDateTime, DATE(i.PaymentDateTime) AS paymentDateOnly, SUM(i.Amount) AS totalAmount");
+		StringBuilder query = new StringBuilder("SELECT s.Name AS storeName, i.Currency AS currency, i.PaymentDateTime AS paymentDateTime, SUM(i.Amount) AS totalAmount");
+		query.append(" FROM BOUTIQUE.Invoice i INNER JOIN BOUTIQUE.Cashier c ON (i.CashierId = c.Id)");
+		query.append(" INNER JOIN BOUTIQUE.Store s ON (c.StoreId = s.Id)");
+		
+		StringBuilder whereClause = new StringBuilder(" WHERE");
+		
+		String and = " ";
+		
+		if(reportCriteria.getStoreId() > 0) {
+			whereClause.append(and).append(" s.Id = " + reportCriteria.getStoreId());
+			and = " AND";
+		}
+		
+		if(reportCriteria.getFromDate() != null) {
+			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  >= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
+			and = " AND";
+			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  <= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
+		}
+		
+		if(!whereClause.toString().trim().equals("WHERE")) {
+			query.append(whereClause.toString());
+		}
+		
+		query.append(" GROUP BY s.Name, i.Currency, i.PaymentDateTime");
+		
+		query.append(" ORDER BY i.PaymentDateTime DESC");
+		
+		return query.toString();
+	}
 
 }

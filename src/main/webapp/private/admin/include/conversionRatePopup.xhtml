@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<div class="modal fade modal-wide" id="conversionModal" tabindex="-1" role="dialog" aria-labelledby="ConversionLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-md-4">
+			<div class="modal-content">
+				<h:panelGroup id="conversionPopupPanel">
+					<div class="modal-header pd-top0p5 pd-bottom0p5">
+						<button type="button" class="close mr-top0p25" data-dismiss="modal" aria-hidden="true">×</button>
+						<label>Currency Conversion</label>
+					</div>
+
+
+					<div class="modal-body pd-left2 pd-right2">
+						<div class="row mr-bottom0p75">
+
+							<div class="col-md-5 text-right">
+								<label>Enter TAUX CDF: </label>
+							</div>
+
+							<div class="col-md-6">
+								<h:inputText value="#{productBean.conversionRateCDF.rate}" styleClass="form-control " />
+
+								<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('RateCDF')}">
+									<h:outputText value="#{productBean.validationErrors.getSimpleError('RateCDF')}" />
+								</h:panelGroup>
+							</div>
+						</div>
+						
+						<div class="row">
+
+							<div class="col-md-5 text-right">
+								<label>Enter TAUX EURO: </label>
+							</div>
+
+							<div class="col-md-6">
+								<h:inputText value="#{productBean.conversionRateEuro.rate}" styleClass="form-control " />
+
+								<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('RateEuro')}">
+									<h:outputText value="#{productBean.validationErrors.getSimpleError('RateEuro')}" />
+								</h:panelGroup>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="modal-footer pd-top0p5 pd-bottom0p5" style="text-align: center">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-success mr-right0p5" value="Update" action="#{productController.saveConversionRate()}"
+							render="conversionPopupPanel"
+							oncomplete="ajaxStop(); #{!productBean.validationErrors.anyError ? 'hidePopupById(\'conversionModal\');' : '' }"></a4j:commandButton>
+
+						<button type="button" onclick="hidePopupById('conversionModal')" class="btn btn-danger">Cancel</button>
+					</div>
+				</h:panelGroup>
+			</div>
+		</div>
+	</div>
+
+</ui:composition>

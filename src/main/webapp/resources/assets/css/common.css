@@ -287,3 +287,7 @@ a.btn-white:hover i {
 label {
 	margin-top: 0.25em;
 }
+
+.text-white {
+	color: #fff;
+}

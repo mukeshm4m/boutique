@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:panelGroup id="newStorePanel">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-bold">#{storeBean.store.id eq null ? 'Add ' : 'Edit '} Store</h3>
+			</div>
+
+			<div class="panel-body">
+
+				<div class="row">
+
+
+					<div class="col-md-3">
+						<h:inputText id="storeNameField" value="#{storeBean.store.name}" styleClass="form-control" pt:placeholder="Store Name" />
+
+						<h:panelGroup styleClass="error" rendered="#{storeBean.validationErrors.containsField('StoreName')}">
+							<h:outputText value="#{storeBean.validationErrors.getSimpleError('StoreName')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-success btn-block" value="#{storeBean.store.id eq null ? 'Add ' : 'Update '}"
+							action="#{storeController.addStore()}" render="newStorePanel storeListPanel" oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+
+					<div class="col-md-2">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-danger btn-block" value="Cancel" action="#{storeController.reset()}" render="branchMainPanel"
+							oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
+
+</ui:composition>

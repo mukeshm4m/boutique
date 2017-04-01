@@ -4,7 +4,6 @@ import com.boutique.model.Invoice;
 import com.boutique.model.InvoiceProduct;
 import com.boutique.model.Product;
 import com.boutique.util.Constants;
-import com.boutique.util.DataUtil;
 
 public class CartBean extends CartController {
 

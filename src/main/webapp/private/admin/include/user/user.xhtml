@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:panelGroup id="newUserPanel">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-bold">#{storeBean.cashier.id eq null ? 'Add ' : 'Edit '} User</h3>
+			</div>
+
+			<div class="panel-body">
+
+				<div class="row mr-bottom0p75">
+
+					<div class="col-md-2">
+						<h:selectOneMenu value="#{storeBean.cashier.role}" styleClass="form-control">
+							<f:selectItem itemLabel="Select Role" itemValue="-1"></f:selectItem>
+							<f:selectItem itemLabel="Admin" itemValue="Admin"></f:selectItem>
+							<f:selectItem itemLabel="Cashier" itemValue="Cashier"></f:selectItem>
+							<a4j:ajax event="change" render="storePanel" />
+						</h:selectOneMenu>
+
+						<h:panelGroup styleClass="error" rendered="#{storeBean.validationErrors.containsField('UserRole')}">
+							<h:outputText value="#{storeBean.validationErrors.getSimpleError('UserRole')}" />
+						</h:panelGroup>
+					</div>
+
+					<h:panelGroup id="storePanel">
+						<h:panelGroup rendered="#{storeBean.cashier.role eq 'Cashier'}">
+							<div class="col-md-2">
+								<h:selectOneMenu id="storesList" value="#{storeBean.storeId}" styleClass="form-control">
+									<f:selectItem itemLabel="Select Branch" itemValue="-1"></f:selectItem>
+									<f:selectItems value="#{storeBean.allStores}" var="store" itemLabel="#{store.name}" itemValue="#{store.id}">
+									</f:selectItems>
+								</h:selectOneMenu>
+
+								<h:panelGroup styleClass="error" rendered="#{productBean.validationErrors.containsField('StoreName')}">
+									<h:outputText value="#{productBean.validationErrors.getSimpleError('StoreName')}" />
+								</h:panelGroup>
+
+							</div>
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<div class="col-md-2">
+						<h:inputText id="nameField" value="#{storeBean.cashier.name}" styleClass="form-control" pt:placeholder="Name" />
+
+						<h:panelGroup styleClass="error" rendered="#{storeBean.validationErrors.containsField('Name')}">
+							<h:outputText value="#{storeBean.validationErrors.getSimpleError('Name')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<h:inputText id="userNameField" value="#{storeBean.cashier.username}" styleClass="form-control" pt:placeholder="User Name" />
+
+						<h:panelGroup styleClass="error" rendered="#{storeBean.validationErrors.containsField('UserName')}">
+							<h:outputText value="#{storeBean.validationErrors.getSimpleError('UserName')}" />
+						</h:panelGroup>
+					</div>
+
+					<div class="col-md-2">
+						<h:inputSecret id="passwordField" value="#{storeBean.cashier.password}" styleClass="form-control" pt:placeholder="Password" />
+
+						<h:panelGroup styleClass="error" rendered="#{storeBean.validationErrors.containsField('Password')}">
+							<h:outputText value="#{storeBean.validationErrors.getSimpleError('Password')}" />
+						</h:panelGroup>
+					</div>
+
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12 text-center">
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-success mr-right0p5" value="#{storeBean.cashier.id eq null ? 'Add ' : 'Update '}"
+							action="#{storeController.addUser()}" render="newUserPanel userListPanel" oncomplete="ajaxStop()"></a4j:commandButton>
+							
+						<a4j:commandButton onbegin="ajaxStart()" styleClass="btn btn-danger" value="Cancel" action="#{storeController.reset()}" render="userMainPanel"
+							oncomplete="ajaxStop()"></a4j:commandButton>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</h:panelGroup>
+
+</ui:composition>

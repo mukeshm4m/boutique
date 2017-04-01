@@ -7,6 +7,7 @@ import com.boutique.common.dao.DaoManager;
 import com.boutique.common.util.Util;
 import com.boutique.dao.CashierDao;
 import com.boutique.dao.ProductDao;
+import com.boutique.model.ConversionRate;
 import com.boutique.model.Product;
 import com.boutique.model.ProductCategory;
 import com.boutique.model.Store;
@@ -16,6 +17,7 @@ public final class DataUtil {
 	private static List<ProductCategory> productCategories = new ArrayList<ProductCategory>();
 	private static List<Product> products = new ArrayList<Product>();
 	private static List<Store> stores = new ArrayList<Store>();
+	private static List<ConversionRate> conversionRates = new ArrayList<ConversionRate>();
 
 	private DataUtil() {
 	}
@@ -67,10 +69,23 @@ public final class DataUtil {
 		return stores;
 	}
 
+	/**
+	 * @return the conversionRates
+	 */
+	public static List<ConversionRate> getConversionRates() {
+		
+		if(Util.isNull(conversionRates)) {
+			loadConversionRates();
+		}
+		
+		return conversionRates;
+	}
+
 	public static void loadData() {
 		loadProductCategories();
 		loadProducts();
 		loadStores();
+		loadConversionRates();
 	}
 
 	public static void loadProductCategories() {
@@ -84,7 +99,11 @@ public final class DataUtil {
 	public static void loadStores() {
 		stores = getCashierDao().getAllStores();
 	}
-
+	
+	public static void loadConversionRates() {
+		conversionRates = getProductDao().getAllConversionRates();
+	}
+	
 	public static List<Product> getProductsByCategoryId(Integer categoryId) {
 
 		List<Product> filteredProducts = new ArrayList<Product>();
@@ -110,5 +129,89 @@ public final class DataUtil {
 		}
 
 		return selectedProduct;
+	}
+	
+	public static Product getProductByNameAndCategory(String productName, String categoryName) {
+
+		Product selectedProduct = null;
+
+		for (Product product : products) {
+			if (product.getName().equalsIgnoreCase(productName) && product.getProductCategory().getName().equalsIgnoreCase(categoryName)) {
+				selectedProduct = product;
+				break;
+			}
+		}
+
+		return selectedProduct;
+	}
+	
+	public static ProductCategory getProductCategoryById(Integer productCategoryId) {
+
+		ProductCategory selectedProductCategory = null;
+
+		for (ProductCategory productCategory : productCategories) {
+			if (productCategory.getId().equals(productCategoryId)) {
+				selectedProductCategory = productCategory;
+				break;
+			}
+		}
+
+		return selectedProductCategory;
+	}
+	
+	public static ProductCategory getProductCategoryByName(String productCategoryName) {
+
+		ProductCategory selectedProductCategory = null;
+
+		for (ProductCategory productCategory : productCategories) {
+			if (productCategory.getName().equalsIgnoreCase(productCategoryName)) {
+				selectedProductCategory = productCategory;
+				break;
+			}
+		}
+
+		return selectedProductCategory;
+	}
+	
+	public static Store getStoreById(Integer storeId) {
+
+		Store selectedStore = null;
+
+		for (Store store : stores) {
+			if (store.getId().equals(storeId)) {
+				selectedStore = store;
+				break;
+			}
+		}
+
+		return selectedStore;
+	}
+	
+	public static Store getStoreByName(String storeName) {
+
+		Store selectedStore = null;
+
+		for (Store store : stores) {
+			if (store.getName().equalsIgnoreCase(storeName)) {
+				selectedStore = store;
+				break;
+			}
+		}
+
+		return selectedStore;
+	}
+	
+	public static ConversionRate getConversionRateByCurrency(String currency) {
+
+		ConversionRate selectedConversionRate = null;
+
+		for (ConversionRate conversionRate : conversionRates) {
+			if (conversionRate.getCurrency().equalsIgnoreCase(currency)) {
+				selectedConversionRate = conversionRate;
+				break;
+			}
+		}
+
+		return selectedConversionRate;
 	}
 }

@@ -1,7 +1,5 @@
 package com.boutique.controller;
 
-import javax.servlet.http.HttpSession;
-
 import com.boutique.common.controller.AbstractController;
 import com.boutique.model.Cashier;
 

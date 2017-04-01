@@ -5,6 +5,7 @@ import java.util.Date;
 import com.boutique.common.controller.AbstractController;
 import com.boutique.common.model.StatusMessage;
 import com.boutique.common.util.Util;
+import com.boutique.model.ConversionRate;
 import com.boutique.model.InvoiceProduct;
 import com.boutique.model.Product;
 import com.boutique.util.CloneUtil;
@@ -68,6 +69,8 @@ public class CartController extends AbstractController {
 					break;
 				}
 			}
+			
+			cartBean.getInvoiceProduct().setTotalAmount(cartBean.getInvoiceProduct().getTotalPrice());
 
 			if (inEditMode) {
 				cartBean.getInvoice().getInvoiceProducts().remove(index);
@@ -84,13 +87,19 @@ public class CartController extends AbstractController {
 		}
 	}
 	
-	private void updateInvoiceTotalAmount() {
+	public void updateInvoiceTotalAmount() {
 		CartBean cartBean = getCartBean();
 		
 		Double totalAmount = 0.0;
 		
 		for (InvoiceProduct invoiceProduct : cartBean.getInvoice().getInvoiceProducts()) {
 			totalAmount += invoiceProduct.getTotalPrice();
+		}
+		
+		ConversionRate conversionRate = DataUtil.getConversionRateByCurrency(cartBean.getInvoice().getCurrency());
+		
+		if(Constants.CURRENCY_CDF.equalsIgnoreCase(cartBean.getInvoice().getCurrency()) || Constants.CURRENCY_EURO.equalsIgnoreCase(cartBean.getInvoice().getCurrency())) {
+			totalAmount = totalAmount * conversionRate.getRate();
 		}
 		
 		cartBean.getInvoice().setAmount(totalAmount);
@@ -150,13 +159,13 @@ public class CartController extends AbstractController {
 			
 			cartBean.getInvoice().setPaymentDateTime(new Date());
 			cartBean.getInvoice().setPaymentMode(Constants.PAYMENT_MODE_CASH);
-			cartBean.getInvoice().setCurrency(Constants.CURRENCY_USD);
 			cartBean.getInvoice().setCashier(getSessionBean().getCashier());
 			
 			StatusMessage statusMessage = getInvoiceDao().saveInvoice(cartBean.getInvoice());
 			
 			if(StatusMessage.SUCCESS.equals(statusMessage.getStatusMessage())) {
 				cartBean.setStep(2);
+				getStockDao().updateStock(getSessionBean().getCashier().getStore(), cartBean.getInvoice().getInvoiceProducts());
 			}
 		}
 	}

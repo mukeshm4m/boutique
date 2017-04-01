@@ -22,4 +22,11 @@ public class ReportController extends AbstractController {
 		reportBean.clear();
 		reportBean.loadData();
 	}
+
+	public void showReport(Integer reportType) {
+		ReportBean reportBean = getReportBean();
+		reportBean.clear();
+		reportBean.setReportType(reportType);
+		reportBean.loadData();
+	}
 }
