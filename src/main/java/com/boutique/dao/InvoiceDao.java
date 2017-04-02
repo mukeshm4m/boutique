@@ -1,5 +1,6 @@
 package com.boutique.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.boutique.common.model.StatusMessage;
@@ -14,5 +15,7 @@ public interface InvoiceDao {
 	List<Report> getInvoiceReport(ReportCriteria reportCriteria);
 
 	List<Report> getInvoiceShortReport(ReportCriteria reportCriteria);
+	
+	List<Invoice> getInvoicesByTypeAndDate(String type, Date date, String branchName);
 	
 }

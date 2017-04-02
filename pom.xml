@@ -131,6 +131,16 @@
 <!-- 		  	<version>0.3.1</version> -->
 <!-- 		</dependency> -->
 
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<!-- PDF Generator APIs Start -->
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itextpdf</artifactId>
+		    <version>5.5.11</version>
+		</dependency>
+		<!-- PDF Generator APIs End -->		
+		
+
 	</dependencies>
 	
 	<build>

@@ -1,10 +1,16 @@
 package com.boutique.dao;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 
@@ -15,6 +21,7 @@ import com.boutique.dao.util.HibernateUtil;
 import com.boutique.model.Invoice;
 import com.boutique.model.Report;
 import com.boutique.model.ReportCriteria;
+import com.boutique.validation.ValidationUtil;
 
 public class InvoiceDaoHibernateImpl implements InvoiceDao {
 	
@@ -220,6 +227,44 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		query.append(" ORDER BY i.PaymentDateTime DESC");
 		
 		return query.toString();
+	}
+
+	@Override
+	public List<Invoice> getInvoicesByTypeAndDate(String type, Date date, String branchName) {
+		
+		List<Invoice> invoices = null;
+
+		try {
+			
+			Date maxDate = new Date(date.getTime() + TimeUnit.DAYS.toMillis(1));
+
+			Session session = getSession();
+
+			Criteria criteria = session.createCriteria(Invoice.class)
+					.add(Restrictions.eq("invoiceType", type));
+			
+			Conjunction and = Restrictions.conjunction();
+			
+		    and.add( Restrictions.ge("paymentDateTime", date) );
+		    and.add( Restrictions.lt("paymentDateTime", maxDate) ); 
+		    
+		    criteria.add(and);
+			
+			invoices = criteria.list();
+			
+			if(Boolean.FALSE.equals(ValidationUtil.isNullOrEmpty(branchName))) {
+				invoices = invoices.stream()
+						.filter(i -> branchName.equals(i.getCashier().getStore().getName()))
+						.collect(Collectors.toList());
+			}
+			
+			session.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
+		return invoices;
 	}
 
 }

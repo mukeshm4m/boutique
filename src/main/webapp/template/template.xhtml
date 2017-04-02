@@ -105,6 +105,9 @@
 								<li class="">
 									<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
 								</li>
+								<li class="">
+									<h:commandLink value="Generate Integration Files" actionListener="#{reportController.generateIntegrationFiles()}"></h:commandLink>
+								</li>
 							</h:panelGroup>
 							
 							<h:panelGroup rendered="#{sessionBean.cashier.role eq 'Admin'}">
