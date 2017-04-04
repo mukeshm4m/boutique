@@ -161,6 +161,14 @@ public class CartController extends AbstractController {
 			cartBean.getInvoice().setPaymentMode(Constants.PAYMENT_MODE_CASH);
 			cartBean.getInvoice().setCashier(getSessionBean().getCashier());
 			
+			ConversionRate conversionRate = DataUtil.getConversionRateByCurrency(cartBean.getInvoice().getCurrency());
+			
+			if(Constants.CURRENCY_CDF.equalsIgnoreCase(cartBean.getInvoice().getCurrency()) || Constants.CURRENCY_EURO.equalsIgnoreCase(cartBean.getInvoice().getCurrency())) {
+				for(InvoiceProduct invoiceProduct : cartBean.getInvoice().getInvoiceProducts()) {
+					invoiceProduct.setTotalAmount(invoiceProduct.getTotalAmount() * conversionRate.getRate());
+				}
+			}
+			
 			StatusMessage statusMessage = getInvoiceDao().saveInvoice(cartBean.getInvoice());
 			
 			if(StatusMessage.SUCCESS.equals(statusMessage.getStatusMessage())) {

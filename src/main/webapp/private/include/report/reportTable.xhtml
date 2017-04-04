@@ -41,6 +41,13 @@
 								<h:outputText value="#{report.clientName}" />
 							</rich:column>
 							
+							<rich:column id="typeCol">
+								<f:facet name="header">
+									<h:outputText value="Type" />
+								</f:facet>
+								<h:outputText value="#{report.invoiceType}" />
+							</rich:column>
+							
 							<rich:column id="locationCol">
 								<f:facet name="header">
 									<h:outputText value="Location" />
@@ -74,6 +81,13 @@
 									<h:outputText value="Quantity" />
 								</f:facet>
 								<h:outputText value="#{report.quantity}" />
+							</rich:column>
+							
+							<rich:column id="currencyCol">
+								<f:facet name="header">
+									<h:outputText value="Currency" />
+								</f:facet>
+								<h:outputText value="#{report.currency}" />
 							</rich:column>
 							
 							<rich:column id="totalCol">
