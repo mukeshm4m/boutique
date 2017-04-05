@@ -23,6 +23,7 @@ import com.boutique.common.model.StatusMessage;
 import com.boutique.common.util.DateUtil;
 import com.boutique.common.util.Util;
 import com.boutique.controller.CartBean;
+import com.boutique.controller.IntegrationBean;
 import com.boutique.controller.ReportBean;
 import com.boutique.controller.SessionBean;
 import com.boutique.controller.admin.ProductBean;
@@ -675,6 +676,15 @@ public abstract class AbstractController {
 	 */
 	protected ReportBean getReportBean() {
 		return (ReportBean) getControllerObject("reportBean", ReportBean.class);
+	}
+	
+	/**
+	 * The getIntegrationBean() method is used to get IntegrationBean instance.
+	 *
+	 * @return IntegrationBean object
+	 */
+	protected IntegrationBean getIntegrationBean() {
+		return (IntegrationBean) getControllerObject("integrationBean", IntegrationBean.class);
 	}
 
 	protected InvoiceDao getInvoiceDao() {

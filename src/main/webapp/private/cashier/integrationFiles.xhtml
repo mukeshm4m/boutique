@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/template/template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-bold">Generate Integration Files</h3>
+			</div>
+
+			<div class="panel-body">
+				<h:form id="integrationForm" class="">
+
+					<div class="container">
+
+						<h:panelGroup id="integrationMainPanel">
+
+							<div class="row form-group">
+								<div class="col-md-3 text-right">
+									<h:outputLabel value="Date: " for="date" />
+								</div>
+								<div class="col-md-4">
+									<rich:calendar id="date" value="#{integrationBean.date}"
+										autocomplete="off" inputClass="input-masked form-control"
+										buttonClass="pull-left" showWeeksBar="false"
+										datePattern="MM/dd/yyyy" showFooter="false"
+										buttonIcon="#{request.contextPath}/resources/assets/images/calendar_icon.png"
+										dayDisableFunction="disableFutureDates"></rich:calendar>
+
+									<h:panelGroup styleClass="error"
+										rendered="#{integrationBean.validationErrors.containsField('Date')}">
+										<h:outputText
+											value="#{integrationBean.validationErrors.getSimpleError('Date')}" />
+									</h:panelGroup>
+								</div>
+								<div class="col-md-3">
+									<a4j:commandButton onbegin="ajaxStart()"
+										styleClass="btn btn-success btn-block" value="Generate"
+										action="#{integrationController.generateIntegrationFiles()}"
+										render="billInfoPanel integrationMainPanel"
+										oncomplete="ajaxStop();#{integrationBean.validationErrors.anyError ? '' : 'openPdfs();'}"></a4j:commandButton>
+								</div>
+							</div>
+
+							<h:outputLink  value="#{integrationBean.b2bPdfUrl}" styleClass="b2bPdfLink hide"
+								target="_blank"></h:outputLink >
+							<h:outputLink  value="#{integrationBean.distributorPdfUrl}" target="_blank"
+								styleClass="distributorPdfLink hide"
+								></h:outputLink >
+							<h:outputLink  value="#{integrationBean.customerPdfUrl}" styleClass="customerPdfLink hide"
+								 target="_blank"></h:outputLink >
+							
+						</h:panelGroup>
+
+					</div>
+
+				</h:form>
+			</div>
+		</div>
+		<script>
+			$('#mainMenu').children('li').removeClass('active');
+			$('#mainMenu').children('li:eq(2)').addClass('active');
+		</script>
+
+	</ui:define>
+
+</ui:composition>

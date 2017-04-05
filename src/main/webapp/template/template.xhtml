@@ -70,6 +70,7 @@
 <script src="#{request.contextPath}/resources/assets/js/common.js"></script>
 <script src="#{request.contextPath}/resources/assets/js/popup.js"></script>
 <script src="#{request.contextPath}/resources/assets/js/validation.js"></script>
+<script src="#{request.contextPath}/resources/assets/js/custom.js"></script>
 <!-- /Custom JS -->
 
 <script type="text/javascript">
@@ -106,7 +107,8 @@
 									<h:link value="Reporting" outcome="/private/report.xhtml"></h:link>
 								</li>
 								<li class="">
-									<h:commandLink value="Generate Integration Files" actionListener="#{reportController.generateIntegrationFiles()}"></h:commandLink>
+									<!-- <h:commandLink value="Generate Integration Files" actionListener="#{reportController.generateIntegrationFiles()}"></h:commandLink> -->
+									<h:link value="Generate Integration Files" outcome="/private/cashier/integrationFiles.xhtml"></h:link>
 								</li>
 							</h:panelGroup>
 							
