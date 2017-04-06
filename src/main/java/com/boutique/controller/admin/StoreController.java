@@ -18,7 +18,7 @@ public class StoreController extends AbstractController {
 
 		ValidationUtil.validateTextField(true, "Store Name", "StoreName", storeBean.getStore().getName(), storeBean.getValidationErrors(), 45);
 
-		if (DataUtil.getStoreByName(storeBean.getStore().getName()) != null) {
+		if (storeBean.getStore().getId() == null && DataUtil.getStoreByName(storeBean.getStore().getName()) != null) {
 			storeBean.getValidationErrors().addError("StoreName", "Store with this name already exists");
 		}
 
@@ -85,7 +85,7 @@ public class StoreController extends AbstractController {
 		ValidationUtil.validateTextField(true, "User Name", "UserName", storeBean.getCashier().getUsername(), storeBean.getValidationErrors(), 45);
 		ValidationUtil.validateTextField(true, "Password", "Password", storeBean.getCashier().getPassword(), storeBean.getValidationErrors(), 45);
 		
-		if (!isUsernameUnique(storeBean.getCashier().getUsername())) {
+		if (storeBean.getCashier().getId() ==  null && !isUsernameUnique(storeBean.getCashier().getUsername())) {
 			storeBean.getValidationErrors().addError("UserName", "Username already exists");
 		}
 

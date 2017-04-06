@@ -27,7 +27,7 @@ public class ProductController extends AbstractController {
 			productBean.getValidationErrors().addError("Price", "Enter a valid value");
 		}
 		
-		if(DataUtil.getProductByNameAndCategory(productBean.getProduct().getName(), DataUtil.getProductCategoryById(productBean.getSelectedProductCategoryId()).getName()) != null) {
+		if(productBean.getProduct().getId() == null && DataUtil.getProductByNameAndCategory(productBean.getProduct().getName(), DataUtil.getProductCategoryById(productBean.getSelectedProductCategoryId()).getName()) != null) {
 			productBean.getValidationErrors().addError("ProductName", "Product with this name already exists");
 		}
 
