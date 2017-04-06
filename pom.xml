@@ -119,11 +119,11 @@
 		<!-- JODA Time APIs End -->
 		
 		<!-- oracel jdbc drivers ojdbc7.jar example -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.1</version>
-        </dependency>
+        </dependency> -->
         
 <!-- 		<dependency> -->
 <!-- 		  	<groupId>com.github.v-ladynev</groupId> -->

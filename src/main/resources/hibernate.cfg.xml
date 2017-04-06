@@ -12,11 +12,11 @@
 <!-- 	<property name="hibernate.connection.password">root</property>-->
         
         <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:xe</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.1.122:1521:ora11g</property>
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
-		<property name="hibernate.default_schema">BOUTIQUE</property>
-        <property name="hibernate.connection.username">system</property>
-        <property name="hibernate.connection.password">system</property>
+		<property name="hibernate.default_schema">boutique</property>
+        <property name="hibernate.connection.username">boutique</property>
+        <property name="hibernate.connection.password">12345678</property>
         <property name="show_sql">true</property>
         
         <mapping resource="com/boutique/model/Store.hbm.xml"></mapping>
