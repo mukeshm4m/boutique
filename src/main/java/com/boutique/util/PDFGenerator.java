@@ -17,13 +17,15 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFGenerator {
 
-	public static Boolean generateIntegerationFile(List<Invoice> invoices, String outputFileDir, String invoiceType, Cashier cashierObj) {
-
+	public static String generateIntegerationFile(List<Invoice> invoices, String outputFileDir, String invoiceType, Cashier cashierObj) {
+		
+		String integrationFileName = invoiceType + "-" + DateUtil.getCurrentTimestamp() + ".pdf";
+		
 		try {
 			Document document = new Document(PageSize.A4, 20, 20, 50, 50);
 
 			PdfWriter writer = PdfWriter.getInstance(document,
-					new FileOutputStream(outputFileDir + invoiceType + "-" + DateUtil.getCurrentTimestamp() + ".pdf"));
+					new FileOutputStream(outputFileDir + integrationFileName));
 
 			document.open();
 
@@ -132,10 +134,10 @@ public class PDFGenerator {
 		} catch (Exception e) {
 			System.err.println("Unable to generateDistributorAndB2BIntegerationFile");
 
-			return Boolean.FALSE;
+			return null;
 		}
 
-		return Boolean.TRUE;
+		return integrationFileName;
 	}
 
 }
