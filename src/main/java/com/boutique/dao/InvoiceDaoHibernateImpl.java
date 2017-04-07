@@ -200,7 +200,7 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 	
 	private String getShortReportQuery(ReportCriteria reportCriteria) {
 		//StringBuilder query = new StringBuilder("SELECT s.Name AS storeName, i.Currency AS currency, i.PaymentDateTime AS paymentDateTime, DATE(i.PaymentDateTime) AS paymentDateOnly, SUM(i.Amount) AS totalAmount");
-		StringBuilder query = new StringBuilder("SELECT s.Name AS storeName, i.Currency AS currency, i.PaymentDateTime AS paymentDateTime, SUM(i.Amount) AS totalAmount");
+		StringBuilder query = new StringBuilder("SELECT s.Name AS storeName, i.Currency AS currency, trunc(i.PaymentDateTime) AS paymentDateTime, SUM(i.Amount) AS totalAmount");
 		query.append(" FROM BOUTIQUE.Invoice i INNER JOIN BOUTIQUE.Cashier c ON (i.CashierId = c.Id)");
 		query.append(" INNER JOIN BOUTIQUE.Store s ON (c.StoreId = s.Id)");
 		
@@ -214,18 +214,18 @@ public class InvoiceDaoHibernateImpl implements InvoiceDao {
 		}
 		
 		if(reportCriteria.getFromDate() != null) {
-			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  >= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
-			and = " AND";
-			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  <= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + " 00:00:00'");
+			whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  = '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + "'");
+			//and = " AND";
+			//whereClause.append(and).append(" to_char(i.PaymentDateTime, 'yyyy-mm-dd')  <= '" + DateUtil.formatDateOnlyPatternYearMonthDay(reportCriteria.getFromDate()) + "'");
 		}
 		
 		if(!whereClause.toString().trim().equals("WHERE")) {
 			query.append(whereClause.toString());
 		}
 		
-		query.append(" GROUP BY s.Name, i.Currency, i.PaymentDateTime");
+		query.append(" GROUP BY s.Name, i.Currency, trunc(i.PaymentDateTime)");
 		
-		query.append(" ORDER BY i.PaymentDateTime DESC");
+		query.append(" ORDER BY trunc(i.PaymentDateTime) DESC");
 		
 		return query.toString();
 	}
