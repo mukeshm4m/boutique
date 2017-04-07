@@ -22,7 +22,6 @@ public class InvoiceProduct implements Serializable {
 		if (Boolean.TRUE.equals(initialize)) {
 			this.product = new Product();
 			this.invoice = new Invoice();
-			this.quantity = 0;
 			this.totalPrice = 0.0;
 		}
 	}
@@ -92,7 +91,7 @@ public class InvoiceProduct implements Serializable {
 	 */
 	public Double getTotalPrice() {
 		totalPrice = 0.0;
-		if (product.getPrice() != null) {
+		if (product.getPrice() != null && quantity != null) {
 			totalPrice = quantity * product.getPrice();
 		}
 		return totalPrice;
