@@ -88,6 +88,20 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
+	<managed-bean>
+		<managed-bean-name>integrationBean</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.IntegrationBean
+		</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>integrationController</managed-bean-name>
+		<managed-bean-class>com.boutique.controller.IntegrationController
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>toHomePage</from-outcome>
