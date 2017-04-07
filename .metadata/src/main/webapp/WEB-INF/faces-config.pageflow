@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14914728566020" configfile="/boutique/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1522" id="pf14914733541181" outlinks="pf14914733541182 pf14914733541183 pf14914733541184 pf14914733541185 pf14914733541186 pf14914733541187 pf14914733541188 pf14914733541189" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf149147335411810" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14914733541182" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/cashier/shoppingCart.xhtml" x="338" y="562" id="pf149147335411811" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14914733541183" path="/private/cashier/shoppingCart.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/admin/productManagement.xhtml" x="338" y="946" id="pf149147335411812" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14914733541184" path="/private/admin/productManagement.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/admin/stockManagement.xhtml" x="338" y="1330" id="pf149147335411813" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14914733541185" path="/private/admin/stockManagement.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/admin/branchManagement.xhtml" x="338" y="1714" id="pf149147335411814" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14914733541186" path="/private/admin/branchManagement.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/admin/storeManagement.xhtml" x="338" y="2098" id="pf149147335411815" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf14914733541187" path="/private/admin/storeManagement.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/report.xhtml" x="338" y="2482" id="pf149147335411816" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf14914733541188" path="/private/report.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="error/expired.xhtml" x="338" y="2866" id="pf149147335411917" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf14914733541189" path="/error/expired.xhtml"/>
+  <links id="pf14914733541182" target="pf149147335411810" source="pf14914733541181" outcome="toHomePage" redirect="true"/>
+  <links id="pf14914733541183" target="pf149147335411811" source="pf14914733541181" outcome="toShoppingCartPage" redirect="true"/>
+  <links id="pf14914733541184" target="pf149147335411812" source="pf14914733541181" outcome="toProductManagementPage" redirect="true"/>
+  <links id="pf14914733541185" target="pf149147335411813" source="pf14914733541181" outcome="toStockManagementPage" redirect="true"/>
+  <links id="pf14914733541186" target="pf149147335411814" source="pf14914733541181" outcome="toBranchManagementPage" redirect="true"/>
+  <links id="pf14914733541187" target="pf149147335411815" source="pf14914733541181" outcome="toStoreManagementPage" redirect="true"/>
+  <links id="pf14914733541188" target="pf149147335411816" source="pf14914733541181" outcome="toReportingPage" redirect="true"/>
+  <links id="pf14914733541189" target="pf149147335411917" source="pf14914733541181" outcome="toViewExpirePage" redirect="true"/>
+</pageflow:Pageflow>
