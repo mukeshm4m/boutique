@@ -46,7 +46,7 @@ public class CartController extends AbstractController {
 			cartBean.getValidationErrors().addError("Product", "Select a value");
 		}
 		
-		if(cartBean.getInvoiceProduct().getQuantity() <= 0) {
+		if(cartBean.getInvoiceProduct().getQuantity() == null || cartBean.getInvoiceProduct().getQuantity() <= 0) {
 			cartBean.getValidationErrors().addError("Quantity", "Enter a valid value");
 		}
 
