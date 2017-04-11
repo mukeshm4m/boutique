@@ -31,22 +31,22 @@ public class IntegrationController extends AbstractController {
 				List<Invoice> b2bInvoices = getInvoiceDao().getInvoicesByTypeAndDate(Constants.INVOICE_TYPE_B2B,
 						DateUtil.getDateOnlyFromDateAndTime(integrationBean.getDate()), cashier.getStore().getName());
 
-				integrationBean.setB2bPdfUrl("/boutique/integrationfiles/" + PDFGenerator.generateIntegerationFile(b2bInvoices,
-						getRealPath() + "integrationfiles/", Constants.INVOICE_TYPE_B2B, cashier));
+				integrationBean.setB2bPdfUrl("/boutique/receipts/" + PDFGenerator.generateIntegerationFile(b2bInvoices,
+						getRealPath() + "receipts/", Constants.INVOICE_TYPE_B2B, cashier));
 
 				List<Invoice> distributorInvoices = getInvoiceDao().getInvoicesByTypeAndDate(
 						Constants.INVOICE_TYPE_DISTRIBUTOR, DateUtil.getDateOnlyFromDateAndTime(integrationBean.getDate()),
 						cashier.getStore().getName());
 
-				integrationBean.setDistributorPdfUrl("/boutique/integrationfiles/" + PDFGenerator.generateIntegerationFile(distributorInvoices,
-						getRealPath() + "integrationfiles/", Constants.INVOICE_TYPE_DISTRIBUTOR, cashier));
+				integrationBean.setDistributorPdfUrl("/boutique/receipts/" + PDFGenerator.generateIntegerationFile(distributorInvoices,
+						getRealPath() + "receipts/", Constants.INVOICE_TYPE_DISTRIBUTOR, cashier));
 
 				List<Invoice> customerInvoices = getInvoiceDao().getInvoicesByTypeAndDate(
 						Constants.INVOICE_TYPE_CUSTOMER, DateUtil.getDateOnlyFromDateAndTime(integrationBean.getDate()),
 						cashier.getStore().getName());
 
-				integrationBean.setCustomerPdfUrl("/boutique/integrationfiles/" + PDFGenerator.generateIntegerationFile(customerInvoices,
-						getRealPath() + "integrationfiles/", Constants.INVOICE_TYPE_CUSTOMER, cashier));
+				integrationBean.setCustomerPdfUrl("/boutique/receipts/" + PDFGenerator.generateIntegerationFile(customerInvoices,
+						getRealPath() + "receipts/", Constants.INVOICE_TYPE_CUSTOMER, cashier));
 
 			} catch (Exception e) {
 
