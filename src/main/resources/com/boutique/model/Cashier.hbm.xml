@@ -5,15 +5,13 @@
 <hibernate-mapping>
 	<class name="com.boutique.model.Cashier" table="Cashier">
 		<id column="Id" name="id" type="java.lang.Integer">
-<!-- 			<generator class="native" /> -->
-<generator class="sequence">
-				<param name="sequence">CASHIER_SEQ</param>
-		</generator>
+			<generator class="native" />
 		</id>
 		<property column="Name" name="name" type="java.lang.String" />
 		<property column="Username" name="username" type="java.lang.String" />
 		<property column="Password" name="password" type="java.lang.String" />
 		<property column="Role" name="role" type="java.lang.String" />
+		<property column="Active" name="active" type="java.lang.Boolean" />
 		
 		<many-to-one column="StoreId" name="store"
 			class="com.boutique.model.Store" fetch="join" />

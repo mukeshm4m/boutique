@@ -16,10 +16,14 @@ public interface CashierDao {
 
 	StatusMessage saveCashier(Cashier cashier);
 
-	List<Cashier> getAllCashier();
+	List<Cashier> getAllCashier(Integer storeId);
 
 	void deleteCashier(Cashier cashier);
 
 	void deleteStore(Store store);
+
+	Store getStoreByName(String name, Integer storeId);
+
+	Cashier getCashierByUsername(String username, Integer cashierId);
 	
 }

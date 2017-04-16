@@ -22,5 +22,7 @@ public interface ProductDao {
 	StatusMessage saveConversionRate(ConversionRate conversionRate);
 
 	List<ConversionRate> getAllConversionRates();
+
+	Product getProductByNameAndCategory(String name, String categoryName, Integer productId);
 	
 }

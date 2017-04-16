@@ -5,15 +5,13 @@
 <hibernate-mapping>
 	<class name="com.boutique.model.Product" table="Product">
 		<id column="Id" name="id" type="java.lang.Integer">
-<!-- 			<generator class="native" /> -->
-<generator class="sequence">
-				<param name="sequence">PRODUCT_SEQ</param>
-		</generator>
+			<generator class="native" />
 		</id>
 		
 		<property column="Name" name="name" type="java.lang.String" />
 		<property column="Description" name="description" type="java.lang.String" />
 		<property column="Price" name="price" type="java.lang.Double" />
+		<property column="Active" name="active" type="java.lang.Boolean" />
 		
 		<many-to-one column="ProductCategoryId" name="productCategory"
 			class="com.boutique.model.ProductCategory" fetch="join" />

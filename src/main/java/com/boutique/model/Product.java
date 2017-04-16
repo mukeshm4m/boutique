@@ -10,6 +10,7 @@ public class Product implements Serializable {
 	private String description;
 	private Double price;
 	private ProductCategory productCategory;
+	private Boolean active;
 
 	/**
 	 * @return the id
@@ -84,5 +85,19 @@ public class Product implements Serializable {
 	 */
 	public void setProductCategory(ProductCategory productCategory) {
 		this.productCategory = productCategory;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

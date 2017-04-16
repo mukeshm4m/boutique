@@ -31,6 +31,7 @@ public class StockDaoHibernateImpl implements StockDao {
 
 			Criteria criteria = session.createCriteria(Stock.class);
 			criteria.createCriteria("store").add(Restrictions.eq("id", storeId));
+			criteria.createCriteria("product").add(Restrictions.eq("active", true));
 
 			stocks = criteria.list();
 			

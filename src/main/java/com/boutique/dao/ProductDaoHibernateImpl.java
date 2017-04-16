@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.boutique.common.model.StatusMessage;
+import com.boutique.common.util.Util;
 import com.boutique.dao.util.HibernateUtil;
 import com.boutique.model.ConversionRate;
 import com.boutique.model.Product;
@@ -26,7 +27,7 @@ public class ProductDaoHibernateImpl implements ProductDao {
 		List<ProductCategory> productCategories = null;
 		try {
 
-			Session session = getSession();
+			Session session = getSession();	
 
 			Criteria criteria = session.createCriteria(ProductCategory.class);
 
@@ -50,6 +51,7 @@ public class ProductDaoHibernateImpl implements ProductDao {
 			Session session = getSession();
 
 			Criteria criteria = session.createCriteria(Product.class);
+			criteria.add(Restrictions.eq("active", true));
 
 			products = criteria.list();
 			
@@ -112,7 +114,8 @@ public class ProductDaoHibernateImpl implements ProductDao {
 			session = getSession();
 
 			tx = session.beginTransaction();
-			session.delete(product);
+			product.setActive(false);
+			session.saveOrUpdate(product);
 			tx.commit();
 
 			session.close();
@@ -207,6 +210,7 @@ public class ProductDaoHibernateImpl implements ProductDao {
 		return statusMessage;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ConversionRate> getAllConversionRates() {
 		List<ConversionRate> conversionRates = null;
@@ -225,5 +229,31 @@ public class ProductDaoHibernateImpl implements ProductDao {
 		}
 		
 		return conversionRates;
+	}
+	
+	@Override
+	public Product getProductByNameAndCategory(String name, String categoryName, Integer productId) {
+		Product product = null;
+		try {
+
+			Session session = getSession();
+
+			Criteria criteria = session.createCriteria(Product.class);
+			criteria.add(Restrictions.eq("name", name));
+			criteria.createCriteria("productCategory").add(Restrictions.eq("name", name));
+			
+			if(!Util.isNullOrZero(productId)) {
+				criteria.add(Restrictions.ne("id", productId));
+			}
+
+			product = (Product) criteria.uniqueResult();
+			
+			session.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		
+		return product;
 	}
 }

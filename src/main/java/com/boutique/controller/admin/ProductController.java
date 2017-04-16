@@ -17,17 +17,18 @@ public class ProductController extends AbstractController {
 		ProductBean productBean = getProductBean();
 		productBean.getValidationErrors().clear();
 
-		ValidationUtil.validateTextField(true, "Product Name", "ProductName", productBean.getProduct().getName(), productBean.getValidationErrors(), 45);
+		Product product = productBean.getProduct();
+		ValidationUtil.validateTextField(true, "Product Name", "ProductName", product.getName(), productBean.getValidationErrors(), 45);
 
 		if (productBean.getSelectedProductCategoryId() == -1) {
 			productBean.getValidationErrors().addError("ProductCategory", "Select a value");
 		}
 
-		if (productBean.getProduct().getPrice() == null || productBean.getProduct().getPrice() <= 0) {
+		if (product.getPrice() == null || product.getPrice() <= 0) {
 			productBean.getValidationErrors().addError("Price", "Enter a valid value");
 		}
 		
-		if(productBean.getProduct().getId() == null && DataUtil.getProductByNameAndCategory(productBean.getProduct().getName(), DataUtil.getProductCategoryById(productBean.getSelectedProductCategoryId()).getName()) != null) {
+		if(!productBean.getValidationErrors().getAnyError() && getProductDao().getProductByNameAndCategory(product.getName(), DataUtil.getProductCategoryById(productBean.getSelectedProductCategoryId()).getName(), product.getId()) != null) {
 			productBean.getValidationErrors().addError("ProductName", "Product with this name already exists");
 		}
 
@@ -39,6 +40,8 @@ public class ProductController extends AbstractController {
 			ProductBean productBean = getProductBean();
 
 			boolean isNewProduct = productBean.getProduct().getId() == null;
+			
+			productBean.getProduct().setActive(true);
 
 			productBean.getProduct().setProductCategory(DataUtil.getProductCategoryById(productBean.getSelectedProductCategoryId()));
 
@@ -93,7 +96,7 @@ public class ProductController extends AbstractController {
 
 		ValidationUtil.validateTextField(true, "Category Name", "CategoryName", productBean.getProductCategory().getName(), productBean.getValidationErrors(), 45);
 		
-		if(DataUtil.getProductCategoryByName(productBean.getProductCategory().getName()) != null) {
+		if(!productBean.getValidationErrors().getAnyError() && DataUtil.getProductCategoryByName(productBean.getProductCategory().getName()) != null) {
 			productBean.getValidationErrors().addError("CategoryName", "Category with this name already exists");
 		}
 

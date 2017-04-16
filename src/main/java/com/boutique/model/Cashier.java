@@ -12,6 +12,7 @@ public class Cashier implements Serializable {
 	private String password;
 	private String role;
 	private Store store;
+	private Boolean active;
 
 	/**
 	 * @return the id
@@ -99,6 +100,20 @@ public class Cashier implements Serializable {
 	 */
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 }

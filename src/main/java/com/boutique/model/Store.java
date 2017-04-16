@@ -7,6 +7,7 @@ public class Store implements Serializable {
 
 	private Integer id;
 	private String name;
+	private Boolean active;
 
 	/**
 	 * @return the id
@@ -36,5 +37,19 @@ public class Store implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

@@ -5,12 +5,10 @@
 <hibernate-mapping>
 	<class name="com.boutique.model.Store" table="Store">
 		<id column="Id" name="id" type="java.lang.Integer">
-			<!-- <generator class="native" /> -->
-			<generator class="sequence">
-				<param name="sequence">STORE_SEQ</param>
-			</generator>
+			<generator class="native" />
 		</id>
 		<property column="Name" name="name" type="java.lang.String" />
-
+		<property column="Active" name="active" type="java.lang.Boolean" />
+		
 	</class>
 </hibernate-mapping>

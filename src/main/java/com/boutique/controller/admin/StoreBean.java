@@ -74,7 +74,7 @@ public class StoreBean extends StoreController {
 	}
 
 	public void loadData() {
-		this.cashiers = getCashierDao().getAllCashier();
+		this.cashiers = getCashierDao().getAllCashier(null);
 	}
 
 	public void clear() {

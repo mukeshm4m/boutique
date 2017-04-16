@@ -18,7 +18,7 @@ public class StoreController extends AbstractController {
 
 		ValidationUtil.validateTextField(true, "Store Name", "StoreName", storeBean.getStore().getName(), storeBean.getValidationErrors(), 45);
 
-		if (storeBean.getStore().getId() == null && DataUtil.getStoreByName(storeBean.getStore().getName()) != null) {
+		if (!storeBean.getValidationErrors().getAnyError() && getCashierDao().getStoreByName(storeBean.getStore().getName(), storeBean.getStore().getId()) != null) {
 			storeBean.getValidationErrors().addError("StoreName", "Store with this name already exists");
 		}
 
@@ -28,6 +28,8 @@ public class StoreController extends AbstractController {
 	public void addStore() {
 		if (validate()) {
 			StoreBean storeBean = getStoreBean();
+			
+			storeBean.getStore().setActive(true);
 
 			boolean isNewStore = storeBean.getStore().getId() == null;
 
@@ -85,7 +87,7 @@ public class StoreController extends AbstractController {
 		ValidationUtil.validateTextField(true, "User Name", "UserName", storeBean.getCashier().getUsername(), storeBean.getValidationErrors(), 45);
 		ValidationUtil.validateTextField(true, "Password", "Password", storeBean.getCashier().getPassword(), storeBean.getValidationErrors(), 45);
 		
-		if (storeBean.getCashier().getId() ==  null && !isUsernameUnique(storeBean.getCashier().getUsername())) {
+		if (!storeBean.getValidationErrors().getAnyError() && getCashierDao().getCashierByUsername(storeBean.getCashier().getUsername(), storeBean.getCashier().getId()) != null) {
 			storeBean.getValidationErrors().addError("UserName", "Username already exists");
 		}
 
@@ -101,6 +103,8 @@ public class StoreController extends AbstractController {
 			} else {
 				storeBean.getCashier().setStore(null);
 			}
+			
+			storeBean.getCashier().setActive(true);
 
 			getCashierDao().saveCashier(storeBean.getCashier());
 
@@ -132,17 +136,5 @@ public class StoreController extends AbstractController {
 			getCashierDao().deleteCashier(cashier);
 			storeBean.loadData();
 		}
-	}
-
-	private boolean isUsernameUnique(String username) {
-		StoreBean storeBean = getStoreBean();
-
-		for (Cashier cashier : storeBean.getCashiers()) {
-			if (cashier.getName().equalsIgnoreCase(username)) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }

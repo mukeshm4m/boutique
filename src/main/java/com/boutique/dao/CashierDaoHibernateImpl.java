@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.boutique.common.model.StatusMessage;
+import com.boutique.common.util.Util;
 import com.boutique.dao.util.HibernateUtil;
 import com.boutique.model.Cashier;
 import com.boutique.model.Store;
@@ -27,7 +28,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 
 			Session session = getSession();
 
-			Criteria criteria = session.createCriteria(Cashier.class).add(Restrictions.eq("username", username)).add(Restrictions.eq("password", password));
+			Criteria criteria = session.createCriteria(Cashier.class).add(Restrictions.eq("username", username)).add(Restrictions.eq("password", password)).add(Restrictions.eq("active", true));;
 
 			cashier = (Cashier) criteria.uniqueResult();
 			
@@ -51,6 +52,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 			Session session = getSession();
 
 			Criteria criteria = session.createCriteria(Store.class);
+			criteria.add(Restrictions.eq("active", true));
 
 			stores = criteria.list();
 			
@@ -65,7 +67,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cashier> getAllCashier() {
+	public List<Cashier> getAllCashier(Integer storeId) {
 
 		List<Cashier> cashiers = null;
 
@@ -74,6 +76,11 @@ public class CashierDaoHibernateImpl implements CashierDao {
 			Session session = getSession();
 
 			Criteria criteria = session.createCriteria(Cashier.class);
+			criteria.add(Restrictions.eq("active", true));
+			
+			if(storeId != null) {
+				criteria.createCriteria("store").add(Restrictions.eq("id", storeId));
+			}
 
 			cashiers = criteria.list();
 			
@@ -173,7 +180,8 @@ public class CashierDaoHibernateImpl implements CashierDao {
 			session = getSession();
 
 			tx = session.beginTransaction();
-			session.delete(cashier);
+			cashier.setActive(false);
+			session.saveOrUpdate(cashier);
 			tx.commit();
 
 			session.close();
@@ -199,14 +207,22 @@ public class CashierDaoHibernateImpl implements CashierDao {
 		Transaction tx = null;
 
 		try {
-
+			
 			session = getSession();
 
 			tx = session.beginTransaction();
-			session.delete(store);
+			
+			store.setActive(false);
+			session.saveOrUpdate(store);
+			
 			tx.commit();
 
 			session.close();
+			
+			List<Cashier> cashiers = getAllCashier(store.getId());
+			for (Cashier cashier : cashiers) {
+				deleteCashier(cashier);
+			}
 
 		} catch (Exception e) {
 
@@ -220,5 +236,59 @@ public class CashierDaoHibernateImpl implements CashierDao {
 
 			System.err.println(e);
 		}
+	}
+	
+	@Override
+	public Store getStoreByName(String name, Integer storeId) {
+
+		Store store = null;
+
+		try {
+
+			Session session = getSession();
+
+			Criteria criteria = session.createCriteria(Store.class);
+			criteria.add(Restrictions.eq("name", name));
+			
+			if(!Util.isNullOrZero(storeId)) {
+				criteria.add(Restrictions.ne("id", storeId));
+			}
+
+			store = (Store) criteria.uniqueResult();
+			
+			session.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
+		return store;
+	}
+	
+	@Override
+	public Cashier getCashierByUsername(String username, Integer cashierId) {
+
+		Cashier cashier = null;
+
+		try {
+
+			Session session = getSession();
+
+			Criteria criteria = session.createCriteria(Cashier.class);
+			criteria.add(Restrictions.eq("username", username));
+			
+			if(!Util.isNullOrZero(cashierId)) {
+				criteria.add(Restrictions.ne("id", cashierId));
+			}
+
+			cashier = (Cashier) criteria.uniqueResult();
+			
+			session.close();
+
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
+		return cashier;
 	}
 }

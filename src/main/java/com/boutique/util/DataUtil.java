@@ -131,20 +131,6 @@ public final class DataUtil {
 		return selectedProduct;
 	}
 	
-	public static Product getProductByNameAndCategory(String productName, String categoryName) {
-
-		Product selectedProduct = null;
-
-		for (Product product : products) {
-			if (product.getName().equalsIgnoreCase(productName) && product.getProductCategory().getName().equalsIgnoreCase(categoryName)) {
-				selectedProduct = product;
-				break;
-			}
-		}
-
-		return selectedProduct;
-	}
-	
 	public static ProductCategory getProductCategoryById(Integer productCategoryId) {
 
 		ProductCategory selectedProductCategory = null;
@@ -179,20 +165,6 @@ public final class DataUtil {
 
 		for (Store store : stores) {
 			if (store.getId().equals(storeId)) {
-				selectedStore = store;
-				break;
-			}
-		}
-
-		return selectedStore;
-	}
-	
-	public static Store getStoreByName(String storeName) {
-
-		Store selectedStore = null;
-
-		for (Store store : stores) {
-			if (store.getName().equalsIgnoreCase(storeName)) {
 				selectedStore = store;
 				break;
 			}
