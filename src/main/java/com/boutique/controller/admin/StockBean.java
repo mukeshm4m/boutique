@@ -3,6 +3,7 @@ package com.boutique.controller.admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.boutique.common.util.Util;
 import com.boutique.model.Stock;
 import com.boutique.model.Store;
 import com.boutique.util.DataUtil;
@@ -75,7 +76,12 @@ public class StockBean extends StockController {
 	}
 
 	public void init() {
-		this.storeId = this.getAllStores().get(0).getId();
+		if(Util.isNotNullAndEmpty(this.getAllStores())) {
+			this.storeId = this.getAllStores().get(0).getId();
+		} else {
+			this.storeId = -1;
+		}
+		
 		loadStocks();
 	}
 
