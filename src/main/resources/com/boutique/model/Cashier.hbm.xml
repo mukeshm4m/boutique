@@ -5,7 +5,10 @@
 <hibernate-mapping>
 	<class name="com.boutique.model.Cashier" table="Cashier">
 		<id column="Id" name="id" type="java.lang.Integer">
-			<generator class="native" />
+<!-- 			<generator class="native" /> -->
+			<generator class="sequence">
+				<param name="sequence">CASHIER_SEQ</param>
+			</generator>
 		</id>
 		<property column="Name" name="name" type="java.lang.String" />
 		<property column="Username" name="username" type="java.lang.String" />
