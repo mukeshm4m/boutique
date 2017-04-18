@@ -28,7 +28,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 
 			Session session = getSession();
 
-			Criteria criteria = session.createCriteria(Cashier.class).add(Restrictions.eq("username", username)).add(Restrictions.eq("password", password)).add(Restrictions.eq("active", true));;
+			Criteria criteria = session.createCriteria(Cashier.class).add(Restrictions.eq("username", username)).add(Restrictions.eq("password", password)).add(Restrictions.eq("active", true));
 
 			cashier = (Cashier) criteria.uniqueResult();
 			
@@ -249,6 +249,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 
 			Criteria criteria = session.createCriteria(Store.class);
 			criteria.add(Restrictions.eq("name", name));
+			criteria.add(Restrictions.eq("active", true));
 			
 			if(!Util.isNullOrZero(storeId)) {
 				criteria.add(Restrictions.ne("id", storeId));
@@ -276,6 +277,7 @@ public class CashierDaoHibernateImpl implements CashierDao {
 
 			Criteria criteria = session.createCriteria(Cashier.class);
 			criteria.add(Restrictions.eq("username", username));
+			criteria.add(Restrictions.eq("active", true));
 			
 			if(!Util.isNullOrZero(cashierId)) {
 				criteria.add(Restrictions.ne("id", cashierId));

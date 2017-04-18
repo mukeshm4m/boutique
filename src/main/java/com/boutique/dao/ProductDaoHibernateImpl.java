@@ -241,6 +241,7 @@ public class ProductDaoHibernateImpl implements ProductDao {
 			Criteria criteria = session.createCriteria(Product.class);
 			criteria.add(Restrictions.eq("name", name));
 			criteria.createCriteria("productCategory").add(Restrictions.eq("name", name));
+			criteria.add(Restrictions.eq("active", true));
 			
 			if(!Util.isNullOrZero(productId)) {
 				criteria.add(Restrictions.ne("id", productId));
