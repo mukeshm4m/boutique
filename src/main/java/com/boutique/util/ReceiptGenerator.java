@@ -38,7 +38,7 @@ public class ReceiptGenerator {
 			
 			emailTemplate = emailTemplate.replaceAll("##DEPOSIT_SLIP_NO##", invoice.getSlipNo());
 			
-			emailTemplate = emailTemplate.replaceAll("##TOTAL_AMOUNT##", invoice.getAmount().toString());
+			emailTemplate = emailTemplate.replaceAll("##TOTAL_AMOUNT##", invoice.getAmount().toString() + " " + invoice.getCurrency());
 			
 			emailTemplate = emailTemplate.replaceAll("##PAYMENT_REFERENCE_NO##", invoice.getPaymentReferenceNo());
 			
