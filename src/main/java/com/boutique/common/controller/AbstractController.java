@@ -767,4 +767,12 @@ public abstract class AbstractController {
 	public void setSelectedStoreId(Integer selectedStoreId) {
 		this.selectedStoreId = selectedStoreId;
 	}
+	
+	public Double formatDobuleTo2Decimal(Double price) {
+		if (price != null) {
+			DecimalFormat formatter = new DecimalFormat("##.00");
+			price = Double.parseDouble(formatter.format(price));
+		}
+		return price;
+	}
 }

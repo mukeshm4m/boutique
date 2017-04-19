@@ -102,7 +102,7 @@ public class CartController extends AbstractController {
 			totalAmount = totalAmount * conversionRate.getRate();
 		}
 		
-		cartBean.getInvoice().setAmount(totalAmount);
+		cartBean.getInvoice().setAmount(formatDobuleTo2Decimal(totalAmount));
 	}
 
 	public void editCartItem(InvoiceProduct invoiceProduct) {
@@ -165,7 +165,8 @@ public class CartController extends AbstractController {
 			
 			if(Constants.CURRENCY_CDF.equalsIgnoreCase(cartBean.getInvoice().getCurrency()) || Constants.CURRENCY_EURO.equalsIgnoreCase(cartBean.getInvoice().getCurrency())) {
 				for(InvoiceProduct invoiceProduct : cartBean.getInvoice().getInvoiceProducts()) {
-					invoiceProduct.setTotalAmount(invoiceProduct.getTotalAmount() * conversionRate.getRate());
+					Double totalAmount = formatDobuleTo2Decimal(invoiceProduct.getTotalAmount() * conversionRate.getRate());
+					invoiceProduct.setTotalAmount(totalAmount);
 				}
 			}
 			
